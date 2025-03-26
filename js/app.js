@@ -91,3 +91,76 @@ window.addEventListener('load', () => {
 
 // Event listeners
 document.getElementById('share-btn').addEventListener('click', shareNote);
+
+// Function to save note to localStorage
+function saveNote() {
+    const title = document.getElementById('note-title').value;
+    const content = document.getElementById('note-content').value;
+    const tags = document.getElementById('note-tags').value;
+    
+    const note = {
+        id: Date.now(), // Unique ID based on timestamp
+        title: title,
+        content: content,
+        tags: tags,
+        lastModified: new Date().toLocaleString()
+    };
+
+    // Get existing notes or initialize empty array
+    let savedNotes = JSON.parse(localStorage.getItem('savedNotes') || '[]');
+    savedNotes.push(note);
+    
+    // Save to localStorage
+    try {
+        localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+        showMessage('Note saved successfully!');
+    } catch (e) {
+        showMessage('Error saving note: Storage might be full', true);
+    }
+}
+
+// Function to load saved notes
+function loadSavedNotes() {
+    const savedNotes = JSON.parse(localStorage.getItem('savedNotes') || '[]');
+    
+    // Create dropdown for saved notes
+    const notesList = document.createElement('select');
+    notesList.className = 'form-control mb-3';
+    notesList.id = 'saved-notes';
+    
+    // Add default option
+    notesList.add(new Option('Select a saved note...', ''));
+    
+    // Add saved notes to dropdown
+    savedNotes.forEach(note => {
+        notesList.add(new Option(`${note.title || 'Untitled'} - ${note.lastModified}`, note.id));
+    });
+    
+    // Add change event listener
+    notesList.addEventListener('change', loadSelectedNote);
+    
+    // Insert dropdown before the title input
+    const editorContainer = document.querySelector('.editor-container');
+    editorContainer.insertBefore(notesList, editorContainer.firstChild);
+}
+
+// Function to load selected note
+function loadSelectedNote(e) {
+    const noteId = parseInt(e.target.value);
+    if (!noteId) return;
+    
+    const savedNotes = JSON.parse(localStorage.getItem('savedNotes') || '[]');
+    const note = savedNotes.find(n => n.id === noteId);
+    
+    if (note) {
+        document.getElementById('note-title').value = note.title || '';
+        document.getElementById('note-content').value = note.content || '';
+        document.getElementById('note-tags').value = note.tags || '';
+    }
+}
+
+// Load saved notes when page loads
+window.addEventListener('load', loadSavedNotes);
+
+// Add event listener for save button
+document.getElementById('save-btn').addEventListener('click', saveNote);

@@ -165,6 +165,97 @@
             margin-left: 10px;
             display: none;
         }
+
+        .menu-bar {
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            padding: 0;
+        }
+
+        .menu-item {
+            display: inline-block;
+            position: relative;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background: #e9ecef;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-radius: 4px;
+        }
+
+        .menu-item:hover .menu-content {
+            display: block;
+        }
+
+        .menu-content a {
+            display: block;
+            padding: 8px 15px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .menu-content a:hover {
+            background: #f8f9fa;
+        }
+
+        .status-bar {
+            background: #f8f9fa;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-top: 1px solid #ddd;
+        }
+
+        .editor-area {
+            min-height: 400px;
+            padding: 20px;
+            border: none;
+            outline: none;
+            resize: vertical;
+        }
+
+        .dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1001;
+        }
+
+        .dialog-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .shortcut {
+            float: right;
+            color: #666;
+            font-size: 12px;
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -175,33 +266,63 @@
         </div>
 
         <div class="editor-container">
-            <input type="text" id="note-title" placeholder="Note Title...">
-            <div class="toolbar">
-                <button class="btn btn-custom" onclick="formatText('bold')">
-                    <i class="fas fa-bold"></i>
-                </button>
-                <button class="btn btn-custom" onclick="formatText('italic')">
-                    <i class="fas fa-italic"></i>
-                </button>
-                <button class="btn btn-custom" onclick="formatText('underline')">
-                    <i class="fas fa-underline"></i>
-                </button>
-                <button class="btn btn-custom" onclick="insertList('bullet')">
-                    <i class="fas fa-list-ul"></i>
-                </button>
-                <button class="btn btn-custom" onclick="insertList('number')">
-                    <i class="fas fa-list-ol"></i>
-                </button>
+            <!-- Menu Bar -->
+            <div class="menu-bar">
+                <div class="menu-item">File
+                    <div class="menu-content">
+                        <a href="#" onclick="newDocument()"><i class="fas fa-file"></i> New <span class="shortcut">Ctrl+N</span></a>
+                        <a href="#" onclick="openFile()"><i class="fas fa-folder-open"></i> Open... <span class="shortcut">Ctrl+O</span></a>
+                        <a href="#" onclick="saveFile()"><i class="fas fa-save"></i> Save <span class="shortcut">Ctrl+S</span></a>
+                        <a href="#" onclick="saveFileAs()"><i class="fas fa-save"></i> Save As...</a>
+                        <a href="#" onclick="printDocument()"><i class="fas fa-print"></i> Print... <span class="shortcut">Ctrl+P</span></a>
+                        <a href="#" onclick="pageSetup()"><i class="fas fa-cog"></i> Page Setup...</a>
+                        <a href="#" onclick="exitEditor()"><i class="fas fa-times"></i> Exit</a>
+                    </div>
+                </div>
+                <div class="menu-item">Edit
+                    <div class="menu-content">
+                        <a href="#" onclick="document.execCommand('undo')"><i class="fas fa-undo"></i> Undo <span class="shortcut">Ctrl+Z</span></a>
+                        <a href="#" onclick="document.execCommand('cut')"><i class="fas fa-cut"></i> Cut <span class="shortcut">Ctrl+X</span></a>
+                        <a href="#" onclick="document.execCommand('copy')"><i class="fas fa-copy"></i> Copy <span class="shortcut">Ctrl+C</span></a>
+                        <a href="#" onclick="document.execCommand('paste')"><i class="fas fa-paste"></i> Paste <span class="shortcut">Ctrl+V</span></a>
+                        <a href="#" onclick="deleteSelection()"><i class="fas fa-trash"></i> Delete <span class="shortcut">Del</span></a>
+                        <a href="#" onclick="document.execCommand('selectAll')"><i class="fas fa-check-double"></i> Select All <span class="shortcut">Ctrl+A</span></a>
+                        <a href="#" onclick="showFindDialog()"><i class="fas fa-search"></i> Find... <span class="shortcut">Ctrl+F</span></a>
+                        <a href="#" onclick="showReplaceDialog()"><i class="fas fa-exchange-alt"></i> Replace... <span class="shortcut">Ctrl+H</span></a>
+                    </div>
+                </div>
+                <div class="menu-item">Format
+                    <div class="menu-content">
+                        <a href="#" onclick="toggleWordWrap()"><i class="fas fa-align-justify"></i> Word Wrap</a>
+                        <a href="#" onclick="showFontDialog()"><i class="fas fa-font"></i> Font...</a>
+                    </div>
+                </div>
+                <div class="menu-item">View
+                    <div class="menu-content">
+                        <a href="#" onclick="toggleStatusBar()"><i class="fas fa-info-circle"></i> Status Bar</a>
+                    </div>
+                </div>
             </div>
-            <textarea id="note-content" class="form-control" placeholder="Start writing your note here..."></textarea>
-            <input type="text" id="note-tags" class="tags-input" placeholder="Add tags (comma-separated)">
-            <div class="d-flex justify-content-between mt-3">
-                <button id="share-btn" class="btn btn-custom">
-                    <i class="fas fa-share-alt"></i> Share Note
-                </button>
-                <button id="save-btn" class="btn btn-custom">
-                    <i class="fas fa-save"></i> Save Note
-                </button>
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <button onclick="document.execCommand('bold')" class="btn btn-sm btn-light" title="Bold"><i class="fas fa-bold"></i></button>
+                <button onclick="document.execCommand('italic')" class="btn btn-sm btn-light" title="Italic"><i class="fas fa-italic"></i></button>
+                <button onclick="document.execCommand('underline')" class="btn btn-sm btn-light" title="Underline"><i class="fas fa-underline"></i></button>
+                <div class="btn-group ms-2">
+                    <button onclick="document.execCommand('justifyLeft')" class="btn btn-sm btn-light" title="Align Left"><i class="fas fa-align-left"></i></button>
+                    <button onclick="document.execCommand('justifyCenter')" class="btn btn-sm btn-light" title="Align Center"><i class="fas fa-align-center"></i></button>
+                    <button onclick="document.execCommand('justifyRight')" class="btn btn-sm btn-light" title="Align Right"><i class="fas fa-align-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Editor Area -->
+            <div contenteditable="true" class="editor-area" id="editor"></div>
+
+            <!-- Status Bar -->
+            <div class="status-bar" id="statusBar">
+                <span>Line: 1, Column: 1</span>
+                <span class="float-end">100%</span>
             </div>
         </div>
         
@@ -219,6 +340,66 @@
         </div>
         
         <div id="status-message" class="status-message"></div>
+    </div>
+
+    <!-- Dialogs -->
+    <div class="dialog-overlay" id="dialogOverlay"></div>
+    
+    <!-- Find Dialog -->
+    <div class="dialog" id="findDialog">
+        <h5>Find</h5>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="findText" placeholder="Find what...">
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary me-2" onclick="closeFindDialog()">Cancel</button>
+            <button class="btn btn-primary" onclick="findNext()">Find Next</button>
+        </div>
+    </div>
+
+    <!-- Replace Dialog -->
+    <div class="dialog" id="replaceDialog">
+        <h5>Replace</h5>
+        <div class="mb-3">
+            <input type="text" class="form-control mb-2" id="replaceFind" placeholder="Find what...">
+            <input type="text" class="form-control" id="replaceWith" placeholder="Replace with...">
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary me-2" onclick="closeReplaceDialog()">Cancel</button>
+            <button class="btn btn-primary me-2" onclick="findNextReplace()">Find Next</button>
+            <button class="btn btn-primary" onclick="replaceText()">Replace</button>
+        </div>
+    </div>
+
+    <!-- Font Dialog -->
+    <div class="dialog" id="fontDialog">
+        <h5>Font</h5>
+        <div class="mb-3">
+            <label class="form-label">Font Family</label>
+            <select class="form-select" id="fontFamily">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Verdana">Verdana</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Font Size</label>
+            <select class="form-select" id="fontSize">
+                <option value="8">8</option>
+                <option value="10">10</option>
+                <option value="12">12</option>
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18">18</option>
+                <option value="24">24</option>
+            </select>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary me-2" onclick="closeFontDialog()">Cancel</button>
+            <button class="btn btn-primary" onclick="applyFont()">OK</button>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -359,6 +540,95 @@
             if (autoSaveInterval) {
                 clearInterval(autoSaveInterval);
             }
+        });
+
+        // File Menu Functions
+        function newDocument() {
+            if (confirm('Are you sure you want to create a new document? Any unsaved changes will be lost.')) {
+                document.getElementById('editor').innerHTML = '';
+            }
+        }
+
+        function openFile() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.txt';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = event => {
+                    document.getElementById('editor').innerText = event.target.result;
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function saveFile() {
+            const content = document.getElementById('editor').innerText;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'note.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function saveFileAs() {
+            saveFile();
+        }
+
+        function printDocument() {
+            window.print();
+        }
+
+        // Find & Replace Functions
+        function showFindDialog() {
+            document.getElementById('dialogOverlay').style.display = 'block';
+            document.getElementById('findDialog').style.display = 'block';
+        }
+
+        function showReplaceDialog() {
+            document.getElementById('dialogOverlay').style.display = 'block';
+            document.getElementById('replaceDialog').style.display = 'block';
+        }
+
+        // Font Dialog Functions
+        function showFontDialog() {
+            document.getElementById('dialogOverlay').style.display = 'block';
+            document.getElementById('fontDialog').style.display = 'block';
+        }
+
+        function applyFont() {
+            const family = document.getElementById('fontFamily').value;
+            const size = document.getElementById('fontSize').value;
+            document.execCommand('fontName', false, family);
+            document.execCommand('fontSize', false, size);
+            closeFontDialog();
+        }
+
+        // Status Bar Toggle
+        function toggleStatusBar() {
+            const statusBar = document.getElementById('statusBar');
+            statusBar.style.display = statusBar.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Word Wrap Toggle
+        function toggleWordWrap() {
+            const editor = document.getElementById('editor');
+            editor.style.whiteSpace = editor.style.whiteSpace === 'nowrap' ? 'normal' : 'nowrap';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update status bar on cursor movement
+            document.getElementById('editor').addEventListener('keyup', function(e) {
+                const selection = window.getSelection();
+                const position = selection.getRangeAt(0).startOffset;
+                document.getElementById('statusBar').firstElementChild.textContent = 
+                    `Position: ${position}`;
+            });
         });
     </script>
 </body>
