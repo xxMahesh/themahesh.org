@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareNotes by The Mahesh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+        }
+        
+        body {
+            background-color: #f5f6fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .note-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+        
+        .editor-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        #note-title {
+            border: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        #note-content {
+            min-height: 400px;
+            resize: vertical;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .toolbar {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .qr-container {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+        
+        .qr-container img {
+            max-width: 200px;
+            margin: 1rem 0;
+        }
+        
+        .status-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-custom:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .tags-input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .company-header {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .company-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .company-header p {
+            margin: 5px 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .share-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .share-link input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .copy-button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .copy-button:hover {
+            background: #3498db;
+        }
+
+        .copied-message {
+            color: #00C851;
+            font-size: 12px;
+            margin-left: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="note-container">
+        <div class="company-header">
+            <h1>ShareNotes</h1>
+            <p>by The Mahesh</p>
+        </div>
+
+        <div class="editor-container">
+            <input type="text" id="note-title" placeholder="Note Title...">
+            <div class="toolbar">
+                <button class="btn btn-custom" onclick="formatText('bold')">
+                    <i class="fas fa-bold"></i>
+                </button>
+                <button class="btn btn-custom" onclick="formatText('italic')">
+                    <i class="fas fa-italic"></i>
+                </button>
+                <button class="btn btn-custom" onclick="formatText('underline')">
+                    <i class="fas fa-underline"></i>
+                </button>
+                <button class="btn btn-custom" onclick="insertList('bullet')">
+                    <i class="fas fa-list-ul"></i>
+                </button>
+                <button class="btn btn-custom" onclick="insertList('number')">
+                    <i class="fas fa-list-ol"></i>
+                </button>
+            </div>
+            <textarea id="note-content" class="form-control" placeholder="Start writing your note here..."></textarea>
+            <input type="text" id="note-tags" class="tags-input" placeholder="Add tags (comma-separated)">
+            <div class="d-flex justify-content-between mt-3">
+                <button id="share-btn" class="btn btn-custom">
+                    <i class="fas fa-share-alt"></i> Share Note
+                </button>
+                <button id="save-btn" class="btn btn-custom">
+                    <i class="fas fa-save"></i> Save Note
+                </button>
+            </div>
+        </div>
+        
+        <div id="qr-container" class="qr-container">
+            <h3>Share Your Note</h3>
+            <div class="share-link">
+                <input type="text" id="share-url" readonly>
+                <button class="copy-button" onclick="copyShareLink()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+                <span class="copied-message" id="copied-message">Copied!</span>
+            </div>
+            <img id="qr-code" src="" alt="QR Code">
+            <button class="btn btn-custom" onclick="hideQR()">Close</button>
+        </div>
+        
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentNoteId = null;
+        let autoSaveInterval;
+
+        function showMessage(message, isError = false) {
+            const statusDiv = document.getElementById('status-message');
+            statusDiv.textContent = message;
+            statusDiv.style.backgroundColor = isError ? '#ff4444' : '#00C851';
+            statusDiv.style.color = 'white';
+            statusDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function insertList(type) {
+            document.execCommand(type === 'bullet' ? 'insertUnorderedList' : 'insertOrderedList', false, null);
+        }
+
+        async function shareNote() {
+            const content = document.getElementById('note-content').value;
+            const title = document.getElementById('note-title').value;
+            const tags = document.getElementById('note-tags').value;
+
+            if (!content.trim()) {
+                showMessage('Please write something before sharing!', true);
+                return;
+            }
+
+            try {
+                const response = await fetch('/create_note', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        content,
+                        title,
+                        tags
+                    }),
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentNoteId = data.note_id;
+                    const shareUrl = `${window.location.origin}/note/${data.note_id}`;
+                    
+                    // Update URL in address bar
+                    window.history.pushState({}, '', shareUrl);
+                    
+                    // Update share dialog
+                    document.getElementById('qr-code').src = data.qr_code_url;
+                    document.getElementById('share-url').value = shareUrl;
+                    document.getElementById('qr-container').style.display = 'block';
+                    showMessage('Note shared successfully!');
+                    startAutoSave();
+                } else {
+                    showMessage(data.error || 'Error sharing note', true);
+                }
+            } catch (error) {
+                showMessage('Error sharing note: ' + error.message, true);
+            }
+        }
+
+        function copyShareLink() {
+            const shareUrl = document.getElementById('share-url');
+            shareUrl.select();
+            document.execCommand('copy');
+            
+            // Show copied message
+            const copiedMessage = document.getElementById('copied-message');
+            copiedMessage.style.display = 'inline';
+            setTimeout(() => {
+                copiedMessage.style.display = 'none';
+            }, 2000);
+        }
+
+        function hideQR() {
+            document.getElementById('qr-container').style.display = 'none';
+        }
+
+        // Auto-save functionality
+        function startAutoSave() {
+            if (autoSaveInterval) {
+                clearInterval(autoSaveInterval);
+            }
+            autoSaveInterval = setInterval(saveNote, 30000);
+        }
+
+        function stopAutoSave() {
+            clearInterval(autoSaveInterval);
+        }
+
+        async function saveNote() {
+            if (!currentNoteId) {
+                // If no note ID, create a new note instead of trying to save
+                await shareNote();
+                return;
+            }
+            
+            const content = document.getElementById('note-content').value;
+            try {
+                const response = await fetch(`/api/note/${currentNoteId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ content }),
+                });
+                
+                if (response.ok) {
+                    showMessage('Note saved successfully!');
+                } else {
+                    showMessage('Error saving note', true);
+                    stopAutoSave(); // Stop auto-save if there's an error
+                }
+            } catch (error) {
+                showMessage('Error saving note: ' + error.message, true);
+                stopAutoSave(); // Stop auto-save if there's an error
+            }
+        }
+
+        // Event listeners
+        document.getElementById('share-btn').addEventListener('click', shareNote);
+        document.getElementById('save-btn').addEventListener('click', saveNote);
+
+        // Clean up when closing the page
+        window.addEventListener('beforeunload', () => {
+            if (autoSaveInterval) {
+                clearInterval(autoSaveInterval);
+            }
+        });
+    </script>
+</body>
+</html> 
