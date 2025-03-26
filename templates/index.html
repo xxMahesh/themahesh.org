@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareNotes by The Mahesh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+        }
+        
+        body {
+            background-color: #f5f6fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .note-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+        
+        .editor-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        #note-title {
+            border: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        #note-content {
+            min-height: 400px;
+            resize: vertical;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .toolbar {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .qr-container {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+        
+        .qr-container img {
+            max-width: 200px;
+            margin: 1rem 0;
+        }
+        
+        .status-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-custom:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .tags-input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .company-header {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .company-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .company-header p {
+            margin: 5px 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .share-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .share-link input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .copy-button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .copy-button:hover {
+            background: #3498db;
+        }
+
+        .copied-message {
+            color: #00C851;
+            font-size: 12px;
+            margin-left: 10px;
+            display: none;
+        }
+
+        .menu-bar {
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            padding: 0;
+        }
+
+        .menu-item {
+            display: inline-block;
+            position: relative;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background: #e9ecef;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-radius: 4px;
+        }
+
+        .menu-item:hover .menu-content {
+            display: block;
+        }
+
+        .menu-content a {
+            display: block;
+            padding: 8px 15px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .menu-content a:hover {
+            background: #f8f9fa;
+        }
+
+        .status-bar {
+            background: #f8f9fa;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-top: 1px solid #ddd;
+        }
+
+        .editor-area {
+            min-height: 400px;
+            padding: 20px;
+            border: none;
+            outline: none;
+            resize: vertical;
+        }
+
+        .dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1001;
+        }
+
+        .dialog-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .shortcut {
+            float: right;
+            color: #666;
+            font-size: 12px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="note-container">
+        <div class="company-header">
+            <h1>ShareNotes</h1>
+            <p>by The Mahesh</p>
+        </div>
+
+        <div class="editor-container">
+            <!-- Menu Bar -->
+            <div class="menu-bar">
+                <div class="menu-item">File
+                    <div class="menu-content">
+                        <a href="#" onclick="newDocument()"><i class="fas fa-file"></i> New <span class="shortcut">Ctrl+N</span></a>
+                        <a href="#" onclick="openFile()"><i class="fas fa-folder-open"></i> Open... <span class="shortcut">Ctrl+O</span></a>
+                        <a href="#" onclick="saveFile()"><i class="fas fa-save"></i> Save <span class="shortcut">Ctrl+S</span></a>
+                        <a href="#" onclick="saveFileAs()"><i class="fas fa-save"></i> Save As...</a>
+                        <a href="#" onclick="printDocument()"><i class="fas fa-print"></i> Print... <span class="shortcut">Ctrl+P</span></a>
+                        <a href="#" onclick="pageSetup()"><i class="fas fa-cog"></i> Page Setup...</a>
+                        <a href="#" onclick="exitEditor()"><i class="fas fa-times"></i> Exit</a>
+                    </div>
+                </div>
+                <div class="menu-item">Edit
+                    <div class="menu-content">
+                        <a href="#" onclick="document.execCommand('undo')"><i class="fas fa-undo"></i> Undo <span class="shortcut">Ctrl+Z</span></a>
+                        <a href="#" onclick="document.execCommand('cut')"><i class="fas fa-cut"></i> Cut <span class="shortcut">Ctrl+X</span></a>
+                        <a href="#" onclick="document.execCommand('copy')"><i class="fas fa-copy"></i> Copy <span class="shortcut">Ctrl+C</span></a>
+                        <a href="#" onclick="document.execCommand('paste')"><i class="fas fa-paste"></i> Paste <span class="shortcut">Ctrl+V</span></a>
+                        <a href="#" onclick="deleteSelection()"><i class="fas fa-trash"></i> Delete <span class="shortcut">Del</span></a>
+                        <a href="#" onclick="document.execCommand('selectAll')"><i class="fas fa-check-double"></i> Select All <span class="shortcut">Ctrl+A</span></a>
+                        <a href="#" onclick="showFindDialog()"><i class="fas fa-search"></i> Find... <span class="shortcut">Ctrl+F</span></a>
+                        <a href="#" onclick="showReplaceDialog()"><i class="fas fa-exchange-alt"></i> Replace... <span class="shortcut">Ctrl+H</span></a>
+                    </div>
+                </div>
+                <div class="menu-item">Format
+                    <div class="menu-content">
+                        <a href="#" onclick="toggleWordWrap()"><i class="fas fa-align-justify"></i> Word Wrap</a>
+                        <a href="#" onclick="showFontDialog()"><i class="fas fa-font"></i> Font...</a>
+                    </div>
+                </div>
+                <div class="menu-item">View
+                    <div class="menu-content">
+                        <a href="#" onclick="toggleStatusBar()"><i class="fas fa-info-circle"></i> Status Bar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <button onclick="document.execCommand('bold')" class="btn btn-sm btn-light" title="Bold"><i class="fas fa-bold"></i></button>
+                <button onclick="document.execCommand('italic')" class="btn btn-sm btn-light" title="Italic"><i class="fas fa-italic"></i></button>
+                <button onclick="document.execCommand('underline')" class="btn btn-sm btn-light" title="Underline"><i class="fas fa-underline"></i></button>
+                <div class="btn-group ms-2">
+                    <button onclick="document.execCommand('justifyLeft')" class="btn btn-sm btn-light" title="Align Left"><i class="fas fa-align-left"></i></button>
+                    <button onclick="document.execCommand('justifyCenter')" class="btn btn-sm btn-light" title="Align Center"><i class="fas fa-align-center"></i></button>
+                    <button onclick="document.execCommand('justifyRight')" class="btn btn-sm btn-light" title="Align Right"><i class="fas fa-align-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Editor Area -->
+            <div contenteditable="true" class="editor-area" id="editor"></div>
+
+            <!-- Status Bar -->
+            <div class="status-bar" id="statusBar">
+                <span>Line: 1, Column: 1</span>
+                <span class="float-end">100%</span>
+            </div>
+        </div>
+        
+        <div id="qr-container" class="qr-container">
+            <h3>Share Your Note</h3>
+            <div class="share-link">
+                <input type="text" id="share-url" readonly>
+                <button class="copy-button" onclick="copyShareLink()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+                <span class="copied-message" id="copied-message">Copied!</span>
+            </div>
+            <img id="qr-code" src="" alt="QR Code">
+            <button class="btn btn-custom" onclick="hideQR()">Close</button>
+        </div>
+        
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <!-- Dialogs -->
+    <div class="dialog-overlay" id="dialogOverlay"></div>
+    
+    <!-- Find Dialog -->
+    <div class="dialog" id="findDialog">
+        <h5>Find</h5>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="findText" placeholder="Find what...">
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary me-2" onclick="closeFindDialog()">Cancel</button>
+            <button class="btn btn-primary" onclick="findNext()">Find Next</button>
+        </div>
+    </div>
+
+    <!-- Replace Dialog -->
+    <div class="dialog" id="replaceDialog">
+        <h5>Replace</h5>
+        <div class="mb-3">
+            <input type="text" class="form-control mb-2" id="replaceFind" placeholder="Find what...">
+            <input type="text" class="form-control" id="replaceWith" placeholder="Replace with...">
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary me-2" onclick="closeReplaceDialog()">Cancel</button>
+            <button class="btn btn-primary me-2" onclick="findNextReplace()">Find Next</button>
+            <button class="btn btn-primary" onclick="replaceText()">Replace</button>
+        </div>
+    </div>
+
+    <!-- Font Dialog -->
+    <div class="dialog" id="fontDialog">
+        <h5>Font</h5>
+        <div class="mb-3">
+            <label class="form-label">Font Family</label>
+            <select class="form-select" id="fontFamily">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Verdana">Verdana</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Font Size</label>
+            <select class="form-select" id="fontSize">
+                <option value="8">8</option>
+                <option value="10">10</option>
+                <option value="12">12</option>
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18">18</option>
+                <option value="24">24</option>
+            </select>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary me-2" onclick="closeFontDialog()">Cancel</button>
+            <button class="btn btn-primary" onclick="applyFont()">OK</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentNoteId = null;
+        let autoSaveInterval;
+
+        function showMessage(message, isError = false) {
+            const statusDiv = document.getElementById('status-message');
+            statusDiv.textContent = message;
+            statusDiv.style.backgroundColor = isError ? '#ff4444' : '#00C851';
+            statusDiv.style.color = 'white';
+            statusDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function insertList(type) {
+            document.execCommand(type === 'bullet' ? 'insertUnorderedList' : 'insertOrderedList', false, null);
+        }
+
+        async function shareNote() {
+            const content = document.getElementById('note-content').value;
+            const title = document.getElementById('note-title').value;
+            const tags = document.getElementById('note-tags').value;
+
+            if (!content.trim()) {
+                showMessage('Please write something before sharing!', true);
+                return;
+            }
+
+            try {
+                const response = await fetch('/create_note', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        content,
+                        title,
+                        tags
+                    }),
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentNoteId = data.note_id;
+                    const shareUrl = `${window.location.origin}/note/${data.note_id}`;
+                    
+                    // Update URL in address bar
+                    window.history.pushState({}, '', shareUrl);
+                    
+                    // Update share dialog
+                    document.getElementById('qr-code').src = data.qr_code_url;
+                    document.getElementById('share-url').value = shareUrl;
+                    document.getElementById('qr-container').style.display = 'block';
+                    showMessage('Note shared successfully!');
+                    startAutoSave();
+                } else {
+                    showMessage(data.error || 'Error sharing note', true);
+                }
+            } catch (error) {
+                showMessage('Error sharing note: ' + error.message, true);
+            }
+        }
+
+        function copyShareLink() {
+            const shareUrl = document.getElementById('share-url');
+            shareUrl.select();
+            document.execCommand('copy');
+            
+            // Show copied message
+            const copiedMessage = document.getElementById('copied-message');
+            copiedMessage.style.display = 'inline';
+            setTimeout(() => {
+                copiedMessage.style.display = 'none';
+            }, 2000);
+        }
+
+        function hideQR() {
+            document.getElementById('qr-container').style.display = 'none';
+        }
+
+        // Auto-save functionality
+        function startAutoSave() {
+            if (autoSaveInterval) {
+                clearInterval(autoSaveInterval);
+            }
+            autoSaveInterval = setInterval(saveNote, 30000);
+        }
+
+        function stopAutoSave() {
+            clearInterval(autoSaveInterval);
+        }
+
+        async function saveNote() {
+            if (!currentNoteId) {
+                // If no note ID, create a new note instead of trying to save
+                await shareNote();
+                return;
+            }
+            
+            const content = document.getElementById('note-content').value;
+            try {
+                const response = await fetch(`/api/note/${currentNoteId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ content }),
+                });
+                
+                if (response.ok) {
+                    showMessage('Note saved successfully!');
+                } else {
+                    showMessage('Error saving note', true);
+                    stopAutoSave(); // Stop auto-save if there's an error
+                }
+            } catch (error) {
+                showMessage('Error saving note: ' + error.message, true);
+                stopAutoSave(); // Stop auto-save if there's an error
+            }
+        }
+
+        // Event listeners
+        document.getElementById('share-btn').addEventListener('click', shareNote);
+        document.getElementById('save-btn').addEventListener('click', saveNote);
+
+        // Clean up when closing the page
+        window.addEventListener('beforeunload', () => {
+            if (autoSaveInterval) {
+                clearInterval(autoSaveInterval);
+            }
+        });
+
+        // File Menu Functions
+        function newDocument() {
+            if (confirm('Are you sure you want to create a new document? Any unsaved changes will be lost.')) {
+                document.getElementById('editor').innerHTML = '';
+            }
+        }
+
+        function openFile() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.txt';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = event => {
+                    document.getElementById('editor').innerText = event.target.result;
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function saveFile() {
+            const content = document.getElementById('editor').innerText;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'note.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function saveFileAs() {
+            saveFile();
+        }
+
+        function printDocument() {
+            window.print();
+        }
+
+        // Find & Replace Functions
+        function showFindDialog() {
+            document.getElementById('dialogOverlay').style.display = 'block';
+            document.getElementById('findDialog').style.display = 'block';
+        }
+
+        function showReplaceDialog() {
+            document.getElementById('dialogOverlay').style.display = 'block';
+            document.getElementById('replaceDialog').style.display = 'block';
+        }
+
+        // Font Dialog Functions
+        function showFontDialog() {
+            document.getElementById('dialogOverlay').style.display = 'block';
+            document.getElementById('fontDialog').style.display = 'block';
+        }
+
+        function applyFont() {
+            const family = document.getElementById('fontFamily').value;
+            const size = document.getElementById('fontSize').value;
+            document.execCommand('fontName', false, family);
+            document.execCommand('fontSize', false, size);
+            closeFontDialog();
+        }
+
+        // Status Bar Toggle
+        function toggleStatusBar() {
+            const statusBar = document.getElementById('statusBar');
+            statusBar.style.display = statusBar.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Word Wrap Toggle
+        function toggleWordWrap() {
+            const editor = document.getElementById('editor');
+            editor.style.whiteSpace = editor.style.whiteSpace === 'nowrap' ? 'normal' : 'nowrap';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update status bar on cursor movement
+            document.getElementById('editor').addEventListener('keyup', function(e) {
+                const selection = window.getSelection();
+                const position = selection.getRangeAt(0).startOffset;
+                document.getElementById('statusBar').firstElementChild.textContent = 
+                    `Position: ${position}`;
+            });
+        });
+    </script>
+</body>
+</html> 
