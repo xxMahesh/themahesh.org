@@ -1,23 +1,18 @@
-
 import requests
 import json
 from datetime import datetime
 import pandas as pd
-from pyspark.sql.functions import to_date, max as spark_max
+from pyspark.sql.functions import to_date, max as spark_max, lit
+from pyspark.sql import Row
 
 # Load table with register URLs
 df = spark.read.table("Clue_Data_Lakehouse.API_Register_Names")
 
-# Find the maximum timestamp
+# Get max timestamp
 max_date = df.select(spark_max("timestamp")).collect()[0][0]
 
-# Display (optional)
-print("Max timestamp found:", max_date)
-
-# Filter to rows with the max timestamp
+# Filter records with max timestamp
 filtered_df = df.filter(to_date(df.timestamp) == to_date(lit(max_date))).select("Register_Records_URL")
-
-# Convert to pandas for iteration
 url_list = filtered_df.toPandas()
 
 # API setup
@@ -26,54 +21,57 @@ headers = {
     "Api_key": "xxxxxxxxxxxxxxxxxxxхххххххх",
     "Accept": "application/json",
     "Api_user": "аріххххххххх"
-    # "x-clue-pagesize": "1000"  # Optional
 }
 
-# Output location
-output_file = "/lakehouse/default/Files/raw/full_json_data/full_api_data_Reg_RecIdl_test.json"
+# Output collectors
+records = []
+errors = []
 
-# Exception list
-exceptions = []
+# Process URLs
+for i, row in url_list.iterrows():
+    partial_url = row["Register_Records_URL"]
+    full_url = f"{base_url}{partial_url}"
 
-# Save data
-with open(output_file, "w", encoding="utf-8") as f:
-    for i, row in url_list.iterrows():
-        partial_url = row["Register_Records_URL"]
-        full_url = f"{base_url}{partial_url}"
+    try:
+        response = requests.get(full_url, headers=headers)
+        response.raise_for_status()
 
-        try:
-            response = requests.get(full_url, headers=headers)
-            response.raise_for_status()
+        json_data = response.json()
 
-            json_data = response.json()
+        # Skip empty or bad responses
+        if not json_data or (isinstance(json_data, dict) and not json_data.keys()):
+            print(f"Empty response at: {partial_url}")
+            errors.append(Row(
+                url=partial_url,
+                timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                error="Empty or invalid response"
+            ))
+            continue
 
-            # Skip if response is empty or doesn't contain useful content
-            if not json_data or (isinstance(json_data, dict) and not json_data.keys()):
-                print(f"Empty response at: {partial_url}")
-                continue
+        # Add metadata
+        json_data["source_url"] = partial_url
+        json_data["fetched_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            # Add source metadata
-            json_data["source_url"] = partial_url
+        records.append(Row(**json_data))
 
-            # Write to file
-            f.write(json.dumps(json_data) + "\n")
+    except Exception as e:
+        errors.append(Row(
+            url=partial_url,
+            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            error=str(e)
+        ))
 
-        except Exception as e:
-            error_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            print(f"[{error_time}] Error fetching {partial_url}: {e}")
-            exceptions.append({
-                "timestamp": error_time,
-                "url": partial_url,
-                "error": str(e)
-            })
-
-# Optionally: convert exceptions to DataFrame or log
-if exceptions:
-    error_df = pd.DataFrame(exceptions)
-    error_df.to_csv("/lakehouse/default/Files/logs/api_fetch_errors.csv", index=False)
-    print(f"{len(exceptions)} errors logged.")
+# Convert to Spark DataFrames and save
+if records:
+    records_df = spark.createDataFrame(records)
+    records_df.write.mode("overwrite").saveAsTable("Clue_Data_Lakehouse.API_Records_Full")
+    print(f"Saved {records_df.count()} records to 'API_Records_Full'")
 else:
-    print("All URLs fetched successfully.")
+    print("No records fetched successfully.")
 
-
-
+if errors:
+    errors_df = spark.createDataFrame(errors)
+    errors_df.write.mode("overwrite").saveAsTable("Clue_Data_Lakehouse.API_Fetch_Errors")
+    print(f"Logged {errors_df.count()} errors to 'API_Fetch_Errors'")
+else:
+    print("No errors encountered.")
