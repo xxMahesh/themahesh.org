@@ -1,118 +1,79 @@
-from pyspark.sql.functions import explode_outer, col, lit
-from pyspark.sql.types import StructType
+
 import requests
 import json
+from datetime import datetime
+import pandas as pd
+from pyspark.sql.functions import to_date, max as spark_max
 
-# API details
-base_url = "https://nhs.clue.co.uk/clue/API/v2/{register_name}/custom-fields"
+# Load table with register URLs
+df = spark.read.table("Clue_Data_Lakehouse.API_Register_Names")
+
+# Find the maximum timestamp
+max_date = df.select(spark_max("timestamp")).collect()[0][0]
+
+# Display (optional)
+print("Max timestamp found:", max_date)
+
+# Filter to rows with the max timestamp
+filtered_df = df.filter(to_date(df.timestamp) == to_date(lit(max_date))).select("Register_Records_URL")
+
+# Convert to pandas for iteration
+url_list = filtered_df.toPandas()
+
+# API setup
+base_url = "https://nhs.clue.co.uk/clue/API/v2"
 headers = {
-    "Api_key": "xxxxxxxx",
+    "Api_key": "xxxxxxxxxxxxxxxxxxxхххххххх",
     "Accept": "application/json",
-    "Api_user": "cxxxx",
-    "x-clue-pagesize": "1000"
+    "Api_user": "аріххххххххх"
+    # "x-clue-pagesize": "1000"  # Optional
 }
 
-register_names = [
-    "addresses", "assessments", "cases", "communications", "decisions", "events",
-    "files", "Incidents", "information", "intelligence", "investigations", "material",
-    "organisations", "outcomes", "persons", "staff", "statements", "tasks", "vehicles"
-]
+# Output location
+output_file = "/lakehouse/default/Files/raw/full_json_data/full_api_data_Reg_RecIdl_test.json"
 
-# Initialize an empty DataFrame
-combined_df = None
+# Exception list
+exceptions = []
 
-for register_name in register_names:
-    # Fetch data from the API
-    response = requests.get(base_url.format(register_name=register_name), headers=headers)
+# Save data
+with open(output_file, "w", encoding="utf-8") as f:
+    for i, row in url_list.iterrows():
+        partial_url = row["Register_Records_URL"]
+        full_url = f"{base_url}{partial_url}"
 
-    if response.status_code != 200:
-        print(f"Failed to fetch data for {register_name}. Status code: {response.status_code}")
-        continue
+        try:
+            response = requests.get(full_url, headers=headers)
+            response.raise_for_status()
 
-    data = response.json()
+            json_data = response.json()
 
-    # Convert the data to a Spark DataFrame
-    df = spark.read.json(spark.sparkContext.parallelize([json.dumps(data)]))
+            # Skip if response is empty or doesn't contain useful content
+            if not json_data or (isinstance(json_data, dict) and not json_data.keys()):
+                print(f"Empty response at: {partial_url}")
+                continue
 
-    # Check for '_embedded.items'
-    if "_embedded" in df.columns:
-        embedded_df = df.select("_embedded.*")
+            # Add source metadata
+            json_data["source_url"] = partial_url
 
-        if "items" in embedded_df.columns:
-            exploded_df = embedded_df.select(explode_outer(col("items")).alias("item"))
+            # Write to file
+            f.write(json.dumps(json_data) + "\n")
 
-            # Only expand item if it's a struct
-            if isinstance(exploded_df.schema["item"].dataType, StructType):
-                df_flat = exploded_df.select("item.*")
-            else:
-                df_flat = exploded_df.withColumn("value", col("item"))
+        except Exception as e:
+            error_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            print(f"[{error_time}] Error fetching {partial_url}: {e}")
+            exceptions.append({
+                "timestamp": error_time,
+                "url": partial_url,
+                "error": str(e)
+            })
 
-            # Add register name column
-            df_flat = df_flat.withColumn("register_name", lit(register_name))
-
-            # Combine into one DataFrame
-            if combined_df is None:
-                combined_df = df_flat
-            else:
-                combined_df = combined_df.unionByName(df_flat, allowMissingColumns=True)
-
-# If there's data, display and write to table
-if combined_df:
-    combined_df.printSchema()
-    combined_df.show(5)
-    combined_df.write.mode("overwrite").saveAsTable("combined_raw_assessments_data")
-    print("Data successfully written to the table combined_raw_assessments_data")
+# Optionally: convert exceptions to DataFrame or log
+if exceptions:
+    error_df = pd.DataFrame(exceptions)
+    error_df.to_csv("/lakehouse/default/Files/logs/api_fetch_errors.csv", index=False)
+    print(f"{len(exceptions)} errors logged.")
 else:
-    print("No data was combined from the API.")
-
-
--—_______
-
-    response = requests.get(base_url.format(register_name=register_name), headers=headers)
-
-    if response.status_code != 200:
-        print(f"Failed to fetch data for {register_name}. Status code: {response.status_code}")
-        continue
-
-    data = response.json()
-
-    # Convert to Spark DataFrame
-    df = spark.read.json(spark.sparkContext.parallelize([json.dumps(data)]))
-
-    if "_embedded" not in df.columns:
-        print(f"No _embedded section in response for {register_name}")
-        continue
-
-    embedded_df = df.select("_embedded.*")
-
-    if "items" not in embedded_df.columns:
-        print(f"No 'items' field in _embedded for {register_name}")
-        continue
-
-    # Check if items array is empty
-    items_data = embedded_df.select("items").collect()[0]["items"]
-    if not items_data:
-        print(f"'items' is empty for {register_name}")
-        continue
-
-    exploded_df = embedded_df.select(explode_outer(col("items")).alias("item"))
-
-    # Expand struct or fallback
-    if isinstance(exploded_df.schema["item"].dataType, StructType):
-        df_flat = exploded_df.select("item.*")
-    else:
-        df_flat = exploded_df.withColumn("value", col("item"))
-
-    df_flat = df_flat.withColumn("register_name", lit(register_name))
-
-    # Combine
-    if combined_df is None:
-        combined_df = df_flat
-    else:
-        combined_df = combined_df.unionByName(df_flat, allowMissingColumns=True)
-
-
-
+    print("All URLs fetched successfully.")
 
 
 
