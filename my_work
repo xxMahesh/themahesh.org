@@ -64,3 +64,55 @@ if combined_df:
     print("Data successfully written to the table combined_raw_assessments_data")
 else:
     print("No data was combined from the API.")
+
+
+-—_______
+
+    response = requests.get(base_url.format(register_name=register_name), headers=headers)
+
+    if response.status_code != 200:
+        print(f"Failed to fetch data for {register_name}. Status code: {response.status_code}")
+        continue
+
+    data = response.json()
+
+    # Convert to Spark DataFrame
+    df = spark.read.json(spark.sparkContext.parallelize([json.dumps(data)]))
+
+    if "_embedded" not in df.columns:
+        print(f"No _embedded section in response for {register_name}")
+        continue
+
+    embedded_df = df.select("_embedded.*")
+
+    if "items" not in embedded_df.columns:
+        print(f"No 'items' field in _embedded for {register_name}")
+        continue
+
+    # Check if items array is empty
+    items_data = embedded_df.select("items").collect()[0]["items"]
+    if not items_data:
+        print(f"'items' is empty for {register_name}")
+        continue
+
+    exploded_df = embedded_df.select(explode_outer(col("items")).alias("item"))
+
+    # Expand struct or fallback
+    if isinstance(exploded_df.schema["item"].dataType, StructType):
+        df_flat = exploded_df.select("item.*")
+    else:
+        df_flat = exploded_df.withColumn("value", col("item"))
+
+    df_flat = df_flat.withColumn("register_name", lit(register_name))
+
+    # Combine
+    if combined_df is None:
+        combined_df = df_flat
+    else:
+        combined_df = combined_df.unionByName(df_flat, allowMissingColumns=True)
+
+
+
+
+
+
