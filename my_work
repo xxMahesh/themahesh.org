@@ -1,0 +1,66 @@
+from pyspark.sql.functions import explode_outer, col, lit
+from pyspark.sql.types import StructType
+import requests
+import json
+
+# API details
+base_url = "https://nhs.clue.co.uk/clue/API/v2/{register_name}/custom-fields"
+headers = {
+    "Api_key": "xxxxxxxx",
+    "Accept": "application/json",
+    "Api_user": "cxxxx",
+    "x-clue-pagesize": "1000"
+}
+
+register_names = [
+    "addresses", "assessments", "cases", "communications", "decisions", "events",
+    "files", "Incidents", "information", "intelligence", "investigations", "material",
+    "organisations", "outcomes", "persons", "staff", "statements", "tasks", "vehicles"
+]
+
+# Initialize an empty DataFrame
+combined_df = None
+
+for register_name in register_names:
+    # Fetch data from the API
+    response = requests.get(base_url.format(register_name=register_name), headers=headers)
+
+    if response.status_code != 200:
+        print(f"Failed to fetch data for {register_name}. Status code: {response.status_code}")
+        continue
+
+    data = response.json()
+
+    # Convert the data to a Spark DataFrame
+    df = spark.read.json(spark.sparkContext.parallelize([json.dumps(data)]))
+
+    # Check for '_embedded.items'
+    if "_embedded" in df.columns:
+        embedded_df = df.select("_embedded.*")
+
+        if "items" in embedded_df.columns:
+            exploded_df = embedded_df.select(explode_outer(col("items")).alias("item"))
+
+            # Only expand item if it's a struct
+            if isinstance(exploded_df.schema["item"].dataType, StructType):
+                df_flat = exploded_df.select("item.*")
+            else:
+                df_flat = exploded_df.withColumn("value", col("item"))
+
+            # Add register name column
+            df_flat = df_flat.withColumn("register_name", lit(register_name))
+
+            # Combine into one DataFrame
+            if combined_df is None:
+                combined_df = df_flat
+            else:
+                combined_df = combined_df.unionByName(df_flat, allowMissingColumns=True)
+
+# If there's data, display and write to table
+if combined_df:
+    combined_df.printSchema()
+    combined_df.show(5)
+    combined_df.write.mode("overwrite").saveAsTable("combined_raw_assessments_data")
+    print("Data successfully written to the table combined_raw_assessments_data")
+else:
+    print("No data was combined from the API.")
