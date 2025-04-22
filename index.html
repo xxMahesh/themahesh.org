@@ -1,98 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>THE MAHESH GOUD | Nation First, Always</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="THE MAHESH GOUD - Indian Nationalist Perspective">
-    <meta property="og:description" content="Celebrating Indian culture, unity, and national pride">
-    <meta property="og:image" content="assets/images/og-image.jpg">
-    <link rel="icon" href="assets/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        html { scroll-behavior: smooth; }
-        .hero-image { 
-            width: 100%; 
-            height: 400px;
-            object-fit: cover;
-            object-position: center;
-        }
-        @media (max-width: 768px) {
-            .hero-image { height: 300px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>THE MAHESH GOUD | Nation First, Always</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Celebrating Indian culture, unity, and national pride.">
+  <meta property="og:title" content="THE MAHESH GOUD - Indian Nationalist Perspective">
+  <meta property="og:description" content="Celebrating Indian culture, unity, and national pride.">
+  <meta property="og:image" content="2.jpg">
+  <link rel="icon" href="2.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; }
+    .carousel-img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 4px solid #FF9933; }
+    .carousel { display: flex; gap: 1.5rem; justify-content: center; }
+    .timeline:before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 4px; background: #0a192f; }
+    .timeline-item { position: relative; margin-left: 50px; margin-bottom: 2rem; }
+    .timeline-dot { position: absolute; left: -32px; top: 0; width: 24px; height: 24px; background: #FF9933; border-radius: 50%; border: 3px solid #fff; }
+    .dark-mode { background: #1a202c; color: #f7fafc; }
+    .dark-mode .bg-white { background: #2d3748 !important; }
+    .dark-mode .text-gray-900 { color: #f7fafc !important; }
+    .dark-mode .bg-blue-900 { background: #0a192f !important; }
+    .dark-mode .bg-orange-600 { background: #f59e42 !important; }
+    .dark-mode .bg-green-600 { background: #38a169 !important; }
+    .dark-mode .bg-gradient-to-r { background: linear-gradient(to right, #f59e42, #2d3748, #38a169) !important; }
+    .dark-mode input, .dark-mode textarea { background: #22223b !important; color: #f7fafc !important; }
+  </style>
 </head>
-<body class="bg-white text-gray-900">
-    <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-orange-500 via-white to-green-600 shadow-lg fixed w-full z-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <a href="#" class="text-2xl font-bold text-blue-900">THE MAHESH GOUD</a>
-                <div class="space-x-6">
-                    <a href="#about" class="hover:text-orange-600 font-semibold">About</a>
-                    <a href="blog.themahesh.org" class="hover:text-green-700 font-semibold">Blog</a>
-                    <a href="#contact" class="hover:text-blue-800 font-semibold">Contact</a>
-                </div>
-            </div>
+<body class="bg-white text-gray-900 transition-colors duration-300">
+
+<!-- Navbar -->
+<nav class="bg-gradient-to-r from-orange-500 via-white to-green-600 shadow-lg fixed w-full z-50">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <a href="#" class="text-2xl font-bold text-blue-900">THE MAHESH GOUD</a>
+      <div class="space-x-6 flex items-center">
+        <a href="#about" class="hover:text-orange-600 font-semibold">About</a>
+        <a href="https://blog.themahesh.org" class="hover:text-green-700 font-semibold" target="_blank">Blog</a>
+        <a href="#contact" class="hover:text-blue-800 font-semibold">Contact</a>
+        <button id="toggleMode" class="ml-2 px-2 py-1 rounded bg-gray-200 text-gray-800 hover:bg-gray-300 text-sm" title="Toggle dark/light mode">🌙</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="pt-24 pb-10 bg-gradient-to-b from-orange-50 to-white">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h1 class="text-4xl md:text-6xl font-bold text-orange-700 mb-4 tracking-tight">NATION FIRST, ALWAYS</h1>
+    <p class="text-lg text-blue-900 mb-8">Celebrating Indian culture, unity, and national pride.</p>
+    <!-- Carousel -->
+    <div class="carousel mb-8 flex flex-wrap justify-center">
+      <img src="3.jpg" alt="Inspiration 1" class="carousel-img shadow-lg">
+      <img src="2.jpg" alt="Inspiration 2" class="carousel-img shadow-lg">
+      <img src="6.jpg" alt="Inspiration 3" class="carousel-img shadow-lg">
+      <img src="5.jpg" alt="Inspiration 4" class="carousel-img shadow-lg">
+      <img src="savarkar.jpg" alt="Inspiration 5" class="carousel-img shadow-lg">
+    </div>
+    <a href="#about" class="inline-block px-8 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 font-bold text-lg shadow">Learn More</a>
+  </div>
+</section>
+
+<!-- Social Section: Tweets -->
+<section class="max-w-5xl mx-auto px-4 py-10">
+  <h2 class="text-2xl font-bold text-blue-900 mb-6">Latest Tweets</h2>
+  <div class="grid md:grid-cols-5 gap-4">
+    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
+      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
+      <p class="mt-2">Proud to be part of India’s vibrant tech ecosystem! 🇮🇳 #NationFirst</p>
+      <span class="text-xs text-gray-400">Apr 2025</span>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
+      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
+      <p class="mt-2">Unity in diversity is our greatest strength. Jai Hind!</p>
+      <span class="text-xs text-gray-400">Apr 2025</span>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
+      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
+      <p class="mt-2">Celebrating the spirit of Swadeshi and innovation. #AtmanirbharBharat</p>
+      <span class="text-xs text-gray-400">Apr 2025</span>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
+      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
+      <p class="mt-2">Honoring our heroes who shaped the destiny of our nation.</p>
+      <span class="text-xs text-gray-400">Apr 2025</span>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
+      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
+      <p class="mt-2">Let’s work together for a stronger, united India!</p>
+      <span class="text-xs text-gray-400">Apr 2025</span>
+    </div>
+  </div>
+</section>
+
+<!-- About Me Summary -->
+<section id="about" class="max-w-5xl mx-auto px-4 py-10">
+  <h2 class="text-3xl font-bold text-blue-900 mb-6">About Me</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="md:col-span-1 flex flex-col items-center">
+      <img src="profile.jpg" alt="Mahesh Goud" class="w-40 h-40 rounded-full border-4 border-green-600 shadow-lg mb-4">
+      <a href="https://forms.gle/your-form-link" target="_blank" class="mt-4 px-6 py-2 bg-orange-600 text-white rounded font-semibold hover:bg-orange-700">Make Me a Friend</a>
+    </div>
+    <div class="md:col-span-2">
+      <p class="mb-3">
+        I am Mahesh Goud, a technologist and writer deeply passionate about India’s journey as a sovereign, united, and culturally rich nation. My life’s work is inspired by the vision of a strong, self-reliant Bharat, rooted in its timeless civilizational values and propelled by modern innovation.
+      </p>
+      <p class="mb-3">
+        Growing up in the heart of India, I witnessed the power of unity in diversity, the resilience of our people, and the enduring spirit of our freedom fighters. My academic journey in engineering and my professional pursuits in technology have always been guided by the principle of ‘Nation First, Always.’
+      </p>
+      <p class="mb-3">
+        Through my writing, I strive to highlight the stories of unsung heroes, promote the ideals of Swadeshi, and encourage the youth to embrace both tradition and technology. I believe that every Indian has a role in nation-building, and it is our collective responsibility to uphold the values of integrity, inclusiveness, and excellence.
+      </p>
+      <p class="mb-3">
+        My work spans technology advocacy, grassroots volunteering, and thought leadership in the digital space. I regularly contribute to forums, mentor young innovators, and engage in initiatives that bridge the gap between rural and urban India.
+      </p>
+      <p class="mb-3">
+        The journey is ongoing, and my commitment remains unwavering: to see India rise as a global leader, not just in economic terms, but as a beacon of culture, ethics, and unity.
+      </p>
+      <a href="#fullbio" class="text-blue-700 underline font-semibold">Read full biography &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Subscribe -->
+<section class="max-w-2xl mx-auto px-4 py-10">
+  <h2 class="text-2xl font-bold text-blue-900 mb-4">Subscribe to My Newsletter</h2>
+  <form action="https://formspree.io/f/yourformid" method="POST" id="newsletterForm" class="flex flex-col sm:flex-row gap-4">
+    <input type="email" name="email" placeholder="Enter your email" required class="flex-1 px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-600">
+    <button type="submit" class="px-6 py-2 bg-green-600 text-white font-semibold rounded hover:bg-green-700">Subscribe</button>
+  </form>
+  <p id="newsletterMsg" class="mt-2 text-green-600 hidden">Thank you for subscribing!</p>
+</section>
+
+<!-- Contact Button -->
+<div class="flex justify-center mb-10">
+  <a href="#contact" class="px-8 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 font-bold text-lg shadow">Contact Me</a>
+</div>
+
+<!-- Full About Me (Biography + Timeline) -->
+<section id="fullbio" class="max-w-4xl mx-auto px-4 py-10">
+  <h2 class="text-3xl font-bold text-orange-700 mb-6">Full Biography</h2>
+  <div class="flex flex-col md:flex-row gap-8">
+    <div class="md:w-1/3 flex flex-col items-center">
+      <img src="profile.jpg" alt="Mahesh Goud" class="w-48 h-48 rounded-full border-4 border-orange-600 shadow-lg mb-4">
+    </div>
+    <div class="md:w-2/3">
+      <p class="mb-3">
+        Born and raised in a small town, my earliest memories are of vibrant festivals, community gatherings, and the stories of India’s glorious past narrated by my elders. My fascination with technology began at a young age, and I was fortunate to pursue my engineering at a premier institute, where I learnt the power of innovation and collaboration.
+      </p>
+      <p class="mb-3">
+        My professional journey took me across India, from metropolitan cities to rural heartlands, where I saw both the promise and the challenges of our nation. I have worked in leading tech firms, contributed to open-source projects, and led initiatives aimed at digital literacy and social empowerment.
+      </p>
+      <p class="mb-3">
+        Along the way, I have been a volunteer, a mentor, and a relentless advocate for Swadeshi solutions. I believe that technology, when guided by cultural wisdom and ethical values, can be a force for inclusive growth.
+      </p>
+      <p class="mb-3">
+        My writings have appeared in national publications, and my public talks focus on the intersection of technology, culture, and national identity. I am dedicated to nurturing the next generation of leaders who will take India to new heights.
+      </p>
+      <p class="mb-3">
+        I continue to draw inspiration from the lives of great Indians—scientists, poets, warriors, and visionaries—who placed the nation above self.
+      </p>
+      <h3 class="text-xl font-bold text-green-700 mt-6 mb-2">Timeline of Achievements</h3>
+      <ul class="list-disc ml-6 text-base">
+        <li>2010: Graduated with honors in Engineering</li>
+        <li>2012: Joined leading Indian tech firm</li>
+        <li>2014: Launched rural digital literacy initiative</li>
+        <li>2017: Published first national article on Swadeshi innovation</li>
+        <li>2019: Recognized as Young Tech Leader by [Org]</li>
+        <li>2022: Founded community platform for Indian youth</li>
+        <li>2024: Speaker at National Unity Conference</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Nationalist Views (1000 words) -->
+<section class="max-w-4xl mx-auto px-4 py-10">
+  <h2 class="text-3xl font-bold text-blue-900 mb-6">My Perspective on Nationalism</h2>
+  <div class="prose max-w-none">
+    <p>
+      <b>Nationalism, to me, is not a mere slogan or a fleeting emotion—it is the living, breathing soul of a civilization that has withstood the test of time.</b> As an Indian, my understanding of nationalism is rooted in the idea of <i>Vasudhaiva Kutumbakam</i>—the world is one family. Our nationalism is inclusive, compassionate, and forward-looking, drawing strength from our ancient heritage and our modern aspirations.
+    </p>
+    <p>
+      The Indian nation is a tapestry woven from countless threads—languages, faiths, customs, and philosophies. Yet, what binds us is a shared consciousness, a sense of belonging that transcends region and religion. Our freedom movement was not just a political struggle; it was a civilizational awakening, a collective assertion of our right to self-determination, dignity, and progress.
+    </p>
+    <p>
+      In the contemporary world, nationalism is often misunderstood or misrepresented. Some equate it with narrow chauvinism or exclusion. But true Indian nationalism is the very opposite. It is about embracing our diversity, nurturing our pluralism, and striving for a just, equitable society. It is about ensuring that every citizen, regardless of background, has the opportunity to contribute to and benefit from the nation’s growth.
+    </p>
+    <p>
+      Technology and globalization have brought unprecedented opportunities, but also new challenges. In this rapidly changing landscape, our nationalism must be dynamic—open to new ideas, yet anchored in our core values. We must encourage innovation, entrepreneurship, and scientific temper, while also preserving our languages, arts, and traditions.
+    </p>
+    <p>
+      The youth of India are the torchbearers of this new nationalism. They are confident, connected, and committed to making a difference. My message to them is simple: let your dreams be big, but let your roots be deep. Draw inspiration from the lives of our great leaders—Mahatma Gandhi, Swami Vivekananda, Dr. Ambedkar, Sardar Patel, and countless others—who placed the nation above self.
+    </p>
+    <p>
+      Nationalism also means standing up for the weak, fighting injustice, and upholding the rule of law. It is about civic responsibility, environmental stewardship, and social harmony. It is about remembering the sacrifices of our soldiers, the wisdom of our teachers, and the labor of our farmers.
+    </p>
+    <p>
+      As a technologist, I see immense potential in harnessing digital tools for nation-building. From e-governance to digital health, from rural connectivity to smart cities, technology can bridge divides and empower millions. But technology must serve the people, not the other way around. Our digital future must be secure, inclusive, and ethical.
+    </p>
+    <p>
+      Nationalism is not static; it evolves with time. Today, as India stands at the cusp of greatness, we must reaffirm our commitment to unity, integrity, and progress. We must reject divisiveness and negativity, and instead celebrate our achievements, learn from our setbacks, and march forward with confidence.
+    </p>
+    <p>
+      In conclusion, my nationalism is a call to action—a call to serve, to innovate, to unite. It is a celebration of our past, a commitment to our present, and a promise to our future. Jai Hind!
+    </p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact" class="bg-blue-900 text-white py-12 mt-10">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-2xl font-bold mb-4">themahesh.org</h3>
+        <p class="text-sm">Indian technologist, writer, and nationalist. Dedicated to unity, culture, and technological self-reliance.</p>
+      </div>
+      <div>
+        <h4 class="text-xl font-semibold mb-4">Connect</h4>
+        <div class="flex space-x-4">
+          <a href="https://x.com/TheMaheshGoud" target="_blank" class="bg-white rounded-full p-2 shadow hover:bg-orange-100 transition"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" class="w-6 h-6"></a>
+          <a href="https://blog.themahesh.org" target="_blank" class="bg-white rounded-full p-2 shadow hover:bg-orange-100 transition"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/blogger.svg" alt="Blogger" class="w-6 h-6"></a>
         </div>
-    </nav>
+      </div>
+      <div>
+        <h4 class="text-xl font-semibold mb-4">Contact</h4>
+        <p>Email: <a href="mailto:info@themahesh.org" class="underline">info@themahesh.org</a></p>
+      </div>
+    </div>
+    <div class="text-center text-sm text-gray-300 mt-8">&copy; 2025 THE MAHESH GOUD. All rights reserved.</div>
+  </div>
+</footer>
 
-    <!-- Hero Section -->
-    <section class="pt-20">
-        <div class="max-w-6xl mx-auto px-4 py-12">
-            <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-6xl font-bold text-orange-700 mb-4">NATION FIRST, ALWAYS</h1>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-                    <img src="3.jpg" alt="Inspiration" class="w-full h-48 object-cover rounded-lg shadow-lg">
-                    <img src="2.jpg" alt="Inspiration" class="w-full h-48 object-cover rounded-lg shadow-lg">
-                    <img src="6.jpg" alt="Inspiration" class="w-full h-48 object-cover rounded-lg shadow-lg">
-                    <img src="5.jpg" alt="Inspiration" class="w-full h-48 object-cover rounded-lg shadow-lg">
-                    <img src="savarkar.jpg" alt="Inspiration" class="w-full h-48 object-cover rounded-lg shadow-lg">
-                </div>
-            </div>
+<!-- Scripts -->
+<script>
+  // Dark/Light Mode Toggle
+  const toggle = document.getElementById('toggleMode');
+  toggle.addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+  });
 
-            <!-- Introduction & Social Section -->
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <!-- Introduction -->
-                <div class="md:col-span-2">
-                    <h2 class="text-3xl font-bold text-blue-900 mb-4">Introduction</h2>
-                    <p class="text-lg mb-6">
-                        Indian technologist and writer, passionate about national unity and cultural heritage. 
-                        Advocate for Swadeshi values and technological self-reliance.
-                    </p>
-                    <a href="https://forms.zohopublic.in/themaheshorganisation1/form/JoinWithMe/formperma/-n2-cQN63dN_Nhl_65xdMpOHkf2sXSU39w_VODGK72Q" 
-                       class="inline-block px-8 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 font-bold text-lg">
-                        Make Me a Friend
-                    </a>
-                </div>
-    <!-- Footer -->
-    <footer id="contact" class="bg-blue-900 text-white py-12">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-2xl font-bold mb-4">THE MAHESH GOUD</h3>
-                    <p>Indian nationalist views</p>
-                </div>
-                <div>
-                    <h4 class="text-xl font-semibold mb-4">Connect</h4>
-                    <div class="flex space-x-4">
-                        <a href="https://x.com/TheMaheshGoud" class="hover:text-blue-400">X</a>
-                        <a href="https://blog.themahesh.org" class="hover:text-orange-400">Blog</a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-xl font-semibold mb-4">Contact</h4>
-                    <p>Email: <a href="mailto:info@themahesh.org" class="underline">info@themahesh.org</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <script>
-        document.title = document.title.toUpperCase();
-    </script>
+  // Newsletter form feedback
+  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        document.getElementById('newsletterMsg').classList.remove('hidden');
+        this.reset();
+      }
+    });
+  });
+</script>
 </body>
 </html>
