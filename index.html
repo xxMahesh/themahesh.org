@@ -16,9 +16,6 @@
     body { font-family: 'Poppins', sans-serif; }
     .carousel-img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 4px solid #FF9933; }
     .carousel { display: flex; gap: 1.5rem; justify-content: center; }
-    .timeline:before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 4px; background: #0a192f; }
-    .timeline-item { position: relative; margin-left: 50px; margin-bottom: 2rem; }
-    .timeline-dot { position: absolute; left: -32px; top: 0; width: 24px; height: 24px; background: #FF9933; border-radius: 50%; border: 3px solid #fff; }
     .dark-mode { background: #1a202c; color: #f7fafc; }
     .dark-mode .bg-white { background: #2d3748 !important; }
     .dark-mode .text-gray-900 { color: #f7fafc !important; }
@@ -26,7 +23,6 @@
     .dark-mode .bg-orange-600 { background: #f59e42 !important; }
     .dark-mode .bg-green-600 { background: #38a169 !important; }
     .dark-mode .bg-gradient-to-r { background: linear-gradient(to right, #f59e42, #2d3748, #38a169) !important; }
-    .dark-mode input, .dark-mode textarea { background: #22223b !important; color: #f7fafc !important; }
   </style>
 </head>
 <body class="bg-white text-gray-900 transition-colors duration-300">
@@ -63,151 +59,52 @@
   </div>
 </section>
 
-<!-- Social Section: Tweets -->
-<section class="max-w-5xl mx-auto px-4 py-10">
-  <h2 class="text-2xl font-bold text-blue-900 mb-6">Latest Tweets</h2>
-  <div class="grid md:grid-cols-5 gap-4">
-    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
-      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
-      <p class="mt-2">Proud to be part of India’s vibrant tech ecosystem! 🇮🇳 #NationFirst</p>
-      <span class="text-xs text-gray-400">Apr 2025</span>
-    </div>
-    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
-      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
-      <p class="mt-2">Unity in diversity is our greatest strength. Jai Hind!</p>
-      <span class="text-xs text-gray-400">Apr 2025</span>
-    </div>
-    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
-      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
-      <p class="mt-2">Celebrating the spirit of Swadeshi and innovation. #AtmanirbharBharat</p>
-      <span class="text-xs text-gray-400">Apr 2025</span>
-    </div>
-    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
-      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
-      <p class="mt-2">Honoring our heroes who shaped the destiny of our nation.</p>
-      <span class="text-xs text-gray-400">Apr 2025</span>
-    </div>
-    <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border border-orange-100">
-      <span class="text-blue-700 font-bold">@TheMaheshGoud</span>
-      <p class="mt-2">Let’s work together for a stronger, united India!</p>
-      <span class="text-xs text-gray-400">Apr 2025</span>
-    </div>
-  </div>
-</section>
-
-<!-- About Me Summary -->
-<section id="about" class="max-w-5xl mx-auto px-4 py-10">
-  <h2 class="text-3xl font-bold text-blue-900 mb-6">About Me</h2>
-  <div class="grid md:grid-cols-3 gap-8">
-    <div class="md:col-span-1 flex flex-col items-center">
+<!-- About Me + Nationalism Perspective -->
+<section id="about" class="max-w-4xl mx-auto px-4 py-10">
+  <div class="flex flex-col md:flex-row gap-8 items-center">
+    <div class="md:w-1/3 flex flex-col items-center">
       <img src="profile.jpg" alt="Mahesh Goud" class="w-40 h-40 rounded-full border-4 border-green-600 shadow-lg mb-4">
       <a href="https://forms.gle/your-form-link" target="_blank" class="mt-4 px-6 py-2 bg-orange-600 text-white rounded font-semibold hover:bg-orange-700">Make Me a Friend</a>
     </div>
-    <div class="md:col-span-2">
-      <p class="mb-3">
-        I am Mahesh Goud, a technologist and writer deeply passionate about India’s journey as a sovereign, united, and culturally rich nation. My life’s work is inspired by the vision of a strong, self-reliant Bharat, rooted in its timeless civilizational values and propelled by modern innovation.
-      </p>
-      <p class="mb-3">
-        Growing up in the heart of India, I witnessed the power of unity in diversity, the resilience of our people, and the enduring spirit of our freedom fighters. My academic journey in engineering and my professional pursuits in technology have always been guided by the principle of ‘Nation First, Always.’
-      </p>
-      <p class="mb-3">
-        Through my writing, I strive to highlight the stories of unsung heroes, promote the ideals of Swadeshi, and encourage the youth to embrace both tradition and technology. I believe that every Indian has a role in nation-building, and it is our collective responsibility to uphold the values of integrity, inclusiveness, and excellence.
-      </p>
-      <p class="mb-3">
-        My work spans technology advocacy, grassroots volunteering, and thought leadership in the digital space. I regularly contribute to forums, mentor young innovators, and engage in initiatives that bridge the gap between rural and urban India.
-      </p>
-      <p class="mb-3">
-        The journey is ongoing, and my commitment remains unwavering: to see India rise as a global leader, not just in economic terms, but as a beacon of culture, ethics, and unity.
-      </p>
-      <a href="#fullbio" class="text-blue-700 underline font-semibold">Read full biography &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- Newsletter Subscribe -->
-<section class="max-w-2xl mx-auto px-4 py-10">
-  <h2 class="text-2xl font-bold text-blue-900 mb-4">Subscribe to My Newsletter</h2>
-  <form action="https://formspree.io/f/yourformid" method="POST" id="newsletterForm" class="flex flex-col sm:flex-row gap-4">
-    <input type="email" name="email" placeholder="Enter your email" required class="flex-1 px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-600">
-    <button type="submit" class="px-6 py-2 bg-green-600 text-white font-semibold rounded hover:bg-green-700">Subscribe</button>
-  </form>
-  <p id="newsletterMsg" class="mt-2 text-green-600 hidden">Thank you for subscribing!</p>
-</section>
-
-<!-- Contact Button -->
-<div class="flex justify-center mb-10">
-  <a href="#contact" class="px-8 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 font-bold text-lg shadow">Contact Me</a>
-</div>
-
-<!-- Full About Me (Biography + Timeline) -->
-<section id="fullbio" class="max-w-4xl mx-auto px-4 py-10">
-  <h2 class="text-3xl font-bold text-orange-700 mb-6">Full Biography</h2>
-  <div class="flex flex-col md:flex-row gap-8">
-    <div class="md:w-1/3 flex flex-col items-center">
-      <img src="profile.jpg" alt="Mahesh Goud" class="w-48 h-48 rounded-full border-4 border-orange-600 shadow-lg mb-4">
-    </div>
     <div class="md:w-2/3">
-      <p class="mb-3">
-        Born and raised in a small town, my earliest memories are of vibrant festivals, community gatherings, and the stories of India’s glorious past narrated by my elders. My fascination with technology began at a young age, and I was fortunate to pursue my engineering at a premier institute, where I learnt the power of innovation and collaboration.
+      <h2 class="text-3xl font-bold text-blue-900 mb-4">About Me & My Nationalist Perspective</h2>
+      <p class="mb-2">
+        I am Mahesh Goud, a technologist and writer devoted to India’s unity and progress. Raised in a small town, I was inspired by the stories of our freedom fighters and the vibrant diversity of our culture.
       </p>
-      <p class="mb-3">
-        My professional journey took me across India, from metropolitan cities to rural heartlands, where I saw both the promise and the challenges of our nation. I have worked in leading tech firms, contributed to open-source projects, and led initiatives aimed at digital literacy and social empowerment.
+      <p class="mb-2">
+        My academic journey in engineering and my professional life in technology have always been guided by the principle of ‘Nation First, Always’. I believe in Swadeshi innovation and in empowering every Indian through knowledge.
       </p>
-      <p class="mb-3">
-        Along the way, I have been a volunteer, a mentor, and a relentless advocate for Swadeshi solutions. I believe that technology, when guided by cultural wisdom and ethical values, can be a force for inclusive growth.
+      <p class="mb-2">
+        I have led digital literacy initiatives, mentored youth, and promoted the ideals of self-reliance and ethical progress. My writings and talks focus on the intersection of technology, tradition, and national identity.
       </p>
-      <p class="mb-3">
-        My writings have appeared in national publications, and my public talks focus on the intersection of technology, culture, and national identity. I am dedicated to nurturing the next generation of leaders who will take India to new heights.
+      <p class="mb-2">
+        To me, Indian nationalism is inclusive and compassionate. It is about unity in diversity, upholding our heritage, and striving for a just, equitable society. Our nationalism is not about exclusion, but about embracing all Indians, nurturing our pluralism, and working for the common good.
       </p>
-      <p class="mb-3">
-        I continue to draw inspiration from the lives of great Indians—scientists, poets, warriors, and visionaries—who placed the nation above self.
+      <p class="mb-2">
+        I draw inspiration from leaders like Swami Vivekananda, Sardar Patel, and countless unsung heroes who put the nation above self. My mission is to see India rise as a global leader, not just in technology, but as a beacon of culture, ethics, and unity.
       </p>
-      <h3 class="text-xl font-bold text-green-700 mt-6 mb-2">Timeline of Achievements</h3>
+      <p class="mb-2">
+        Let us remember: Nationalism is a call to action. It is about service, innovation, and unity. Together, we can build a stronger, more harmonious Bharat for future generations. Jai Hind!
+      </p>
+      <h3 class="text-xl font-bold text-green-700 mt-6 mb-2">Timeline</h3>
       <ul class="list-disc ml-6 text-base">
-        <li>2010: Graduated with honors in Engineering</li>
-        <li>2012: Joined leading Indian tech firm</li>
-        <li>2014: Launched rural digital literacy initiative</li>
-        <li>2017: Published first national article on Swadeshi innovation</li>
-        <li>2019: Recognized as Young Tech Leader by [Org]</li>
-        <li>2022: Founded community platform for Indian youth</li>
+        <li>2010: Graduated in Engineering</li>
+        <li>2012: Joined Indian tech industry</li>
+        <li>2014: Launched rural digital literacy drive</li>
+        <li>2017: Published first article on Swadeshi innovation</li>
+        <li>2019: Recognized as Young Tech Leader</li>
+        <li>2022: Founded youth community platform</li>
         <li>2024: Speaker at National Unity Conference</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- Nationalist Views (1000 words) -->
-<section class="max-w-4xl mx-auto px-4 py-10">
-  <h2 class="text-3xl font-bold text-blue-900 mb-6">My Perspective on Nationalism</h2>
-  <div class="prose max-w-none">
-    <p>
-      <b>Nationalism, to me, is not a mere slogan or a fleeting emotion—it is the living, breathing soul of a civilization that has withstood the test of time.</b> As an Indian, my understanding of nationalism is rooted in the idea of <i>Vasudhaiva Kutumbakam</i>—the world is one family. Our nationalism is inclusive, compassionate, and forward-looking, drawing strength from our ancient heritage and our modern aspirations.
-    </p>
-    <p>
-      The Indian nation is a tapestry woven from countless threads—languages, faiths, customs, and philosophies. Yet, what binds us is a shared consciousness, a sense of belonging that transcends region and religion. Our freedom movement was not just a political struggle; it was a civilizational awakening, a collective assertion of our right to self-determination, dignity, and progress.
-    </p>
-    <p>
-      In the contemporary world, nationalism is often misunderstood or misrepresented. Some equate it with narrow chauvinism or exclusion. But true Indian nationalism is the very opposite. It is about embracing our diversity, nurturing our pluralism, and striving for a just, equitable society. It is about ensuring that every citizen, regardless of background, has the opportunity to contribute to and benefit from the nation’s growth.
-    </p>
-    <p>
-      Technology and globalization have brought unprecedented opportunities, but also new challenges. In this rapidly changing landscape, our nationalism must be dynamic—open to new ideas, yet anchored in our core values. We must encourage innovation, entrepreneurship, and scientific temper, while also preserving our languages, arts, and traditions.
-    </p>
-    <p>
-      The youth of India are the torchbearers of this new nationalism. They are confident, connected, and committed to making a difference. My message to them is simple: let your dreams be big, but let your roots be deep. Draw inspiration from the lives of our great leaders—Mahatma Gandhi, Swami Vivekananda, Dr. Ambedkar, Sardar Patel, and countless others—who placed the nation above self.
-    </p>
-    <p>
-      Nationalism also means standing up for the weak, fighting injustice, and upholding the rule of law. It is about civic responsibility, environmental stewardship, and social harmony. It is about remembering the sacrifices of our soldiers, the wisdom of our teachers, and the labor of our farmers.
-    </p>
-    <p>
-      As a technologist, I see immense potential in harnessing digital tools for nation-building. From e-governance to digital health, from rural connectivity to smart cities, technology can bridge divides and empower millions. But technology must serve the people, not the other way around. Our digital future must be secure, inclusive, and ethical.
-    </p>
-    <p>
-      Nationalism is not static; it evolves with time. Today, as India stands at the cusp of greatness, we must reaffirm our commitment to unity, integrity, and progress. We must reject divisiveness and negativity, and instead celebrate our achievements, learn from our setbacks, and march forward with confidence.
-    </p>
-    <p>
-      In conclusion, my nationalism is a call to action—a call to serve, to innovate, to unite. It is a celebration of our past, a commitment to our present, and a promise to our future. Jai Hind!
-    </p>
-  </div>
+<!-- Thanks Section -->
+<section class="max-w-xl mx-auto px-4 py-10 text-center">
+  <img src="thanks.jpg" alt="Thank You" class="mx-auto w-32 h-32 rounded-full border-4 border-orange-500 shadow mb-4">
+  <h2 class="text-2xl font-bold text-green-700 mb-2">Thank You for Visiting!</h2>
+  <p class="text-lg text-blue-900">Together, let’s celebrate India’s unity, culture, and progress.<br>Jai Hind!</p>
 </section>
 
 <!-- Footer -->
@@ -234,28 +131,12 @@
   </div>
 </footer>
 
-<!-- Scripts -->
 <script>
   // Dark/Light Mode Toggle
   const toggle = document.getElementById('toggleMode');
   toggle.addEventListener('click', function() {
     document.body.classList.toggle('dark-mode');
     toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-  });
-
-  // Newsletter form feedback
-  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    fetch(this.action, {
-      method: 'POST',
-      body: new FormData(this),
-      headers: { 'Accept': 'application/json' }
-    }).then(response => {
-      if (response.ok) {
-        document.getElementById('newsletterMsg').classList.remove('hidden');
-        this.reset();
-      }
-    });
   });
 </script>
 </body>
