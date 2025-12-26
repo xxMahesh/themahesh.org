@@ -1,155 +1,710 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>THE MAHESH GOUD | Nation First, Always</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Celebrating Indian culture, unity, and national pride.">
-  <meta property="og:title" content="THE MAHESH GOUD - Indian Nationalist Perspective">
-  <meta property="og:description" content="Celebrating Indian culture, unity, and national pride.">
-  <meta property="og:image" content="favicon.png">
-  <link rel="icon" href="favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Data Engineer portfolio — Azure, Fabric, Databricks, ADF, SQL, Python." />
+  <title>Mahesh G | Data Engineer</title>
+
   <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Poppins', sans-serif; }
-    .inspiration-img { width: 150px; height: 150px; object-fit: cover; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    .carousel { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
-    
-    /* Dark Mode Styling */
-    .dark-mode { background: #1a202c; color: #f7fafc; }
-    .dark-mode .bg-white { background: #2d3748 !important; }
-    .dark-mode .text-gray-900 { color: #f7fafc !important; }
-    .dark-mode .bg-blue-900 { background: #0a192f !important; }
-    .dark-mode .bg-orange-600 { background: #f59e42 !important; }
-    .dark-mode .bg-green-600 { background: #38a169 !important; }
-    .dark-mode .bg-gradient-to-r { background: linear-gradient(to right, #f59e42, #2d3748, #38a169) !important; }
+    :root{
+      --bg: #0b1020;
+      --bg2:#0f1733;
+      --card:#111b3f;
+      --text:#eaf0ff;
+      --muted:#b8c4ff;
+      --muted2:#93a4ee;
+      --border: rgba(255,255,255,0.10);
+      --shadow: 0 12px 30px rgba(0,0,0,0.30);
+      --accent:#7aa2ff;
+      --accent2:#9bffd6;
+      --danger:#ff7aa2;
+      --max: 1080px;
+      --radius: 18px;
+      --radius2: 26px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(122,162,255,0.25), transparent 60%),
+                  radial-gradient(900px 600px at 85% 10%, rgba(155,255,214,0.14), transparent 55%),
+                  radial-gradient(900px 600px at 55% 90%, rgba(122,162,255,0.10), transparent 55%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{ max-width: var(--max); margin:0 auto; padding: 22px; }
+
+    /* Top nav */
+    .nav{
+      position: sticky; top:0; z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,16,32,0.65);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav .inner{
+      max-width: var(--max);
+      margin:0 auto;
+      padding: 14px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .dot{
+      width: 10px; height: 10px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(122,162,255,0.12);
+    }
+    .menu{
+      display:flex; flex-wrap:wrap;
+      gap: 10px 14px;
+      align-items:center;
+      justify-content:flex-end;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .menu a{
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+    }
+    .menu a:hover{
+      text-decoration:none;
+      border-color: var(--border);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Hero */
+    .hero{
+      padding: 44px 0 22px;
+      display:grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+    .panel{
+      border: 1px solid var(--border);
+      background: rgba(17,27,63,0.42);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+    }
+    .hero-main{ padding: 28px; }
+    .kicker{
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    h1{
+      margin: 10px 0 10px;
+      font-size: 42px;
+      line-height: 1.1;
+      letter-spacing: -0.6px;
+    }
+    @media (max-width: 520px){
+      h1{ font-size: 34px; }
+    }
+    .sub{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 70ch;
+    }
+    .badges{
+      margin-top: 16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .badge{
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .cta{
+      margin-top: 18px;
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      font-weight: 650;
+      font-size: 14px;
+      gap: 10px;
+      cursor: pointer;
+      user-select:none;
+      text-decoration:none !important;
+    }
+    .btn:hover{ background: rgba(255,255,255,0.06); }
+    .btn.primary{
+      border-color: rgba(122,162,255,0.45);
+      background: linear-gradient(135deg, rgba(122,162,255,0.30), rgba(155,255,214,0.14));
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(122,162,255,0.38), rgba(155,255,214,0.18));
+    }
+    .btn .icon{ width:16px; height:16px; display:inline-block; }
+
+    .hero-side{ padding: 18px; display:flex; flex-direction:column; gap: 12px; }
+    .card{
+      border: 1px solid var(--border);
+      background: rgba(17,27,63,0.52);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+    .metric{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .metric .row{
+      display:flex;
+      justify-content:space-between;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .metric .row b{
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    /* Sections */
+    section{ padding: 18px 0; }
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
+      margin: 18px 0 10px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing: -0.2px;
+    }
+    .section-title p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 60ch;
+    }
+
+    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 900px){ .grid-2{ grid-template-columns: 1fr; } }
+
+    .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 980px){ .grid-3{ grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px){ .grid-3{ grid-template-columns: 1fr; } }
+
+    .pill-list{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: 10px; }
+    .pill{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .proj{
+      display:flex; flex-direction:column; gap: 10px;
+      min-height: 250px;
+    }
+    .proj .top{
+      display:flex; align-items:flex-start; justify-content:space-between; gap: 10px;
+    }
+    .proj h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+    }
+    .proj .tag{
+      font-size: 12px;
+      border:1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 8px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      white-space:nowrap;
+    }
+    .proj p{ margin:0; color: var(--muted); font-size: 14px; }
+    .proj ul{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .proj .links{
+      margin-top:auto;
+      display:flex; gap: 10px; flex-wrap:wrap;
+    }
+    .mini-link{
+      font-size: 13px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 10px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      text-decoration:none !important;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .mini-link:hover{ background: rgba(255,255,255,0.05); }
+
+    .note{
+      color: var(--muted2);
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    /* Timeline */
+    .timeline{
+      display:flex; flex-direction:column; gap: 10px;
+    }
+    .tl-item{
+      display:grid;
+      grid-template-columns: 180px 1fr;
+      gap: 14px;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(17,27,63,0.44);
+    }
+    @media (max-width: 720px){
+      .tl-item{ grid-template-columns: 1fr; }
+    }
+    .tl-item .when{
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .tl-item .what h3{
+      margin:0 0 6px;
+      font-size: 15px;
+    }
+    .tl-item .what p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Contact */
+    .contact{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px){
+      .contact{ grid-template-columns: 1fr; }
+    }
+    .contact .card p{ margin: 0; color: var(--muted); font-size: 14px; }
+    .contact .row{
+      display:flex; gap: 10px; flex-wrap:wrap; margin-top: 12px;
+    }
+
+    /* Footer */
+    footer{
+      padding: 22px 0 44px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      margin-top: 18px;
+    }
+
+    /* Small helper */
+    .muted{ color: var(--muted); }
+    .sr-only{ position:absolute; left:-9999px; }
   </style>
 </head>
 
-<body class="bg-white text-gray-900 transition-colors duration-300">
-
-<!-- Navbar -->
-<nav class="bg-gradient-to-r from-orange-500 via-white to-green-600 shadow-lg fixed w-full z-50">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="flex justify-between items-center py-4">
-      <a href="#" class="text-2xl font-bold text-blue-900">THE MAHESH GOUD</a>
-      <div class="space-x-6 flex items-center">
-        <a href="#about" class="hover:text-orange-600 font-semibold">About</a>
-        <a href="https://blog.themahesh.org" class="hover:text-green-700 font-semibold" target="_blank">Blog</a>
-        <a href="#contact" class="hover:text-blue-800 font-semibold">Contact</a>
-        <button id="toggleMode" class="ml-2 px-2 py-1 rounded bg-gray-200 text-gray-800 hover:bg-gray-300 text-sm" title="Toggle dark/light mode">🌙</button>
+<body>
+  <div class="nav">
+    <div class="inner">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Mahesh G</span>
       </div>
+      <nav class="menu" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
   </div>
-</nav>
 
-<!-- Hero Section -->
-<section class="pt-32 pb-10 bg-gradient-to-b from-orange-50 to-white">
-  <div class="max-w-5xl mx-auto px-4 text-center">
-    
-    <!-- Inspirational Persons Carousel -->
-    <div class="carousel mb-8">
-      <img src="3.jpg" alt="Inspiration 1" class="inspiration-img">
-      <img src="2.jpg" alt="Inspiration 2" class="inspiration-img">
-      <img src="6.jpg" alt="Inspiration 3" class="inspiration-img">
-      <img src="5.jpg" alt="Inspiration 4" class="inspiration-img">
-      <img src="savarkar.jpg" alt="Inspiration 5" class="inspiration-img">
-    </div>
+  <main class="wrap">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="panel hero-main">
+        <div class="kicker">Data Engineer • Azure / Fabric • Warehousing • ETL/ELT</div>
+        <h1>Building reliable, governed data platforms that scale.</h1>
+        <p class="sub">
+          I design and deliver end-to-end data solutions across Azure and Microsoft Fabric—ingestion, orchestration,
+          modelling, and warehousing—so analysts and stakeholders can trust the numbers and make faster decisions.
+        </p>
 
-    <h1 class="text-4xl md:text-6xl font-bold text-orange-700 mb-4 tracking-tight">NATION FIRST, ALWAYS</h1>
-    <p class="text-lg text-blue-900 mb-4">Celebrating Indian culture, unity, and national pride.</p>
-  </div>
-</section>
+        <div class="badges" aria-label="Key technologies">
+          <span class="badge">Azure Data Factory</span>
+          <span class="badge">Databricks</span>
+          <span class="badge">Azure Synapse</span>
+          <span class="badge">Microsoft Fabric</span>
+          <span class="badge">SQL Server / T-SQL</span>
+          <span class="badge">Python</span>
+          <span class="badge">CI/CD • Azure DevOps</span>
+        </div>
 
-<!-- About Me -->
-<section id="about" class="max-w-5xl mx-auto px-4 py-10">
-  <div class="flex flex-col md:flex-row gap-8 items-center">
-    <div class="md:w-1/3 flex flex-col items-center">
-      <img src="themahesh.jpg" alt="Mahesh Goud" class="w-48 shadow-lg mb-4">
-      <a href="https://forms.zohopublic.in/themaheshorganisation1/form/JoinWithMe/formperma/-n2-cQN63dN_Nhl_65xdMpOHkf2sXSU39w_VODGK72Q" target="_blank" class="mt-4 px-6 py-2 bg-orange-600 text-white rounded font-semibold hover:bg-orange-700">Make Me a Friend</a>
-    </div>
-    <div class="md:w-2/3">
-      <h2 class="text-3xl font-bold text-blue-900 mb-4">About Me</h2>
-      <p>I was born in a small town, with big dreams quietly taking shape in my heart. My journey truly began when I moved to Hyderabad to pursue my graduation in Computer Science and Engineering. It was a new city, full of opportunities—and one unexpected moment that would shape my path forever.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">
+            <span class="icon" aria-hidden="true">▸</span>
+            View Projects
+          </a>
+          <a class="btn" href="#contact">
+            <span class="icon" aria-hidden="true">✉</span>
+            Contact
+          </a>
+          <a class="btn" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true">↗</span>
+            GitHub
+          </a>
+          <a class="btn" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true">↗</span>
+            LinkedIn
+          </a>
+        </div>
 
-    <p>One day, while passing by Saifabad PG College, a hand-written banner caught my eye. 
-    It read: <strong>"Join the Indian Army – or Join the Student Army – ABVP."</strong> Those simple words stirred something within me. Curious, I began to explore what <strong>ABVP (Akhil Bharatiya Vidyarthi Parishad)</strong> was all about—and what I discovered left a lasting impact.</p>
-
-    <p>Founded by <strong>Yashwantrao Kelkar Ji</strong> on <strong>July 9th, 1949</strong>, ABVP has stood as a pillar of <strong>nation-building</strong> since the early years of Indian independence. Today, India celebrates <strong>July 9th as National Students Day</strong> in honor of this movement. What drew me in was ABVP's strong belief that:</p>
-
-    <blockquote class="border-l-4 border-orange-600 pl-4 italic my-4">Students are not the citizens of tomorrow, but of today.</blockquote>
-
-    <p>The organization sees students not merely as participants in the education system, but as <strong>responsible citizens</strong> with the power to shape the nation. Its resounding message—<em><strong>"Student’s Power, Nation’s Power"</strong></em>—ignited a sense of purpose in me.</p>
-
-    <p>In <strong>2014</strong>, I joined ABVP. Since then, I have actively taken part in a wide range of <strong>constructive programs</strong> and <strong>nationwide agitations</strong>, addressing social, educational, and political issues. Through this journey, I developed a deeper sense of <strong>nationalism, patriotism, and seva (selfless service)</strong>. I learned the strength of <strong>unity</strong>, the value of <strong>character-building</strong>, and the importance of staying informed about issues like <strong>national security and terrorism</strong>.</p>
-
-    <p>One moment that left a mark was learning about the <strong>"Chalo Chicken Neck" initiative</strong> and the powerful symbolism of <strong>hoisting the national flag at Lal Chowk</strong>—a gesture of strength, unity, and pride, especially inspired by the resilience of the North East states.</p>
-
-    <p>At the heart of my journey is one guiding force: <strong>Swami Vivekananda Ji</strong>. His words have shaped my mindset and continue to fuel my determination. He believed in the strength and spirituality of youth, once declaring:</p>
-
-    <blockquote class="border-l-4 border-green-600 pl-4 italic my-4">What I want is muscles of iron, nerves of steel, inside which dwells a mind of the same material as that of which the thunderbolt is made.</blockquote>
-
-    <p>His teachings remind me every day that <strong>weak thoughts can be replaced with optimism</strong>, and that <strong>yoga and meditation</strong> are tools to awaken our true potential.</p>
-
-    <p>This is more than a story—this is my calling. My path is guided by purpose, shaped by service, and driven by the belief that <em>real change begins with us</em>.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Thanks Section -->
-<section class="max-w-xl mx-auto px-4 py-10 text-center">
-  <img src="thankstelugu.png" alt="Thank You" class="mx-auto mb-4">
-  <h2 class="text-2xl font-bold text-green-700 mb-2">Thank You for Visiting!</h2>
-  <p class="text-lg text-blue-900">Together, let’s celebrate India’s unity, culture, and progress.<br>Jai Hind!</p>
-</section>
-
-<!-- Footer -->
-<footer id="contact" class="bg-blue-900 text-white py-12 mt-10">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="grid md:grid-cols-3 gap-8">
-      <div>
-        <h3 class="text-2xl font-bold mb-4">themahesh.org</h3>
-        <p class="text-sm">Indian Nationalist.</p>
+        <p class="note">
+          Replace the placeholders (YOUR_GITHUB_USERNAME / YOUR_LINKEDIN) with your actual links.
+        </p>
       </div>
-      <div>
-        <h4 class="text-xl font-semibold mb-4">Connect</h4>
-        <div class="flex space-x-4">
-          <a href="https://x.com/TheMaheshGoud" target="_blank" class="bg-white rounded-full p-2 shadow hover:bg-orange-100 transition"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" class="w-6 h-6"></a>
-          <a href="https://blog.themahesh.org" target="_blank" class="bg-white rounded-full p-2 shadow hover:bg-orange-100 transition"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/blogger.svg" alt="Blogger" class="w-6 h-6"></a>
+
+      <aside class="panel hero-side" aria-label="Highlights">
+        <div class="card">
+          <h3>Strengths</h3>
+          <div class="metric">
+            <div class="row"><span>Architecture</span><b>Medallion, DWH modelling</b></div>
+            <div class="row"><span>Engineering</span><b>Scalable pipelines, automation</b></div>
+            <div class="row"><span>Quality</span><b>Governance, lineage, controls</b></div>
+            <div class="row"><span>Delivery</span><b>Agile, DevOps, CI/CD</b></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Focus Areas</h3>
+          <div class="pill-list">
+            <span class="pill">Incremental loads</span>
+            <span class="pill">SCD Type 2</span>
+            <span class="pill">API ingestion</span>
+            <span class="pill">Data quality</span>
+            <span class="pill">Performance tuning</span>
+            <span class="pill">Secure access</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Available For</h3>
+          <p>Data Engineering • Platform Modernisation • Data Architecture • Warehousing • Integration</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-title">
+        <h2>About</h2>
+        <p>How I operate: outcomes first, strong governance, and scalable patterns.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <p>
+            I am a Data Engineer with strong experience building and modernising data platforms using
+            Azure services (ADF, ADLS, Databricks, Synapse) and Microsoft Fabric. I specialise in designing
+            dependable ingestion and transformation pipelines, implementing warehouse models for analytics, and
+            ensuring quality through repeatable, well-governed processes.
+          </p>
+          <p style="margin-top:10px;">
+            I am comfortable working with large relational datasets and semi/unstructured data (JSON, XML, Parquet, CSV),
+            and I collaborate closely with analysts and stakeholders to convert reporting requirements into robust data products.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>What you will see on this site</h3>
+          <ul>
+            <li>Project case studies focused on architecture decisions and outcomes.</li>
+            <li>Re-usable patterns for ingestion, incremental processing, and modelling.</li>
+            <li>Evidence of delivery discipline: CI/CD, documentation, and operational readiness.</li>
+          </ul>
+          <p class="note">Tip: Add 2–4 strong case studies rather than many small examples.</p>
         </div>
       </div>
-      <div>
-        <h4 class="text-xl font-semibold mb-4">Contact</h4>
-        <p>Email: <a href="mailto:info@themahesh.org" class="underline">info@themahesh.org</a></p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-title">
+        <h2>Skills</h2>
+        <p>Grouped by capability to make seniority and depth easy to assess.</p>
       </div>
-    </div>
-    <div class="text-center text-sm text-gray-300 mt-8">&copy; 2025 THE MAHESH GOUD. All rights reserved.</div>
-  </div>
-</footer>
 
-<!-- Script for Dark Mode -->
-<script>
-  const toggle = document.getElementById('toggleMode');
+      <div class="grid-3">
+        <div class="card">
+          <h3>Cloud & Platforms</h3>
+          <div class="pill-list">
+            <span class="pill">Azure Data Factory</span>
+            <span class="pill">Azure Databricks</span>
+            <span class="pill">Azure Synapse</span>
+            <span class="pill">ADLS</span>
+            <span class="pill">Microsoft Fabric</span>
+            <span class="pill">Event Hubs</span>
+            <span class="pill">Logic Apps</span>
+          </div>
+        </div>
 
-  // Function to update the button icon
-  function updateToggleIcon() {
-    toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-  }
+        <div class="card">
+          <h3>Data Engineering</h3>
+          <div class="pill-list">
+            <span class="pill">ETL/ELT</span>
+            <span class="pill">Incremental loads</span>
+            <span class="pill">SCD Type 2</span>
+            <span class="pill">Data quality checks</span>
+            <span class="pill">Metadata-driven pipelines</span>
+            <span class="pill">REST API ingestion</span>
+            <span class="pill">Monitoring & alerting</span>
+          </div>
+        </div>
 
-  // Detect system preference and apply
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.body.classList.add('dark-mode');
-  }
-  updateToggleIcon();
+        <div class="card">
+          <h3>Languages & DevOps</h3>
+          <div class="pill-list">
+            <span class="pill">SQL / T-SQL</span>
+            <span class="pill">Python</span>
+            <span class="pill">Spark SQL</span>
+            <span class="pill">Git</span>
+            <span class="pill">Azure DevOps</span>
+            <span class="pill">CI/CD</span>
+            <span class="pill">Agile</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  // Toggle dark mode on click
-  toggle.addEventListener('click', function() {
-    document.body.classList.toggle('dark-mode');
-    updateToggleIcon();
-  });
-</script>
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-title">
+        <h2>Projects</h2>
+        <p>Replace placeholders with your real implementations, diagrams, and repo links.</p>
+      </div>
 
+      <div class="grid-3">
+        <div class="card proj">
+          <div class="top">
+            <h3>Medallion Data Platform (Azure / Fabric)</h3>
+            <span class="tag">Architecture</span>
+          </div>
+          <p>Designed a governed data platform with Bronze/Silver/Gold layers for analytics-ready datasets.</p>
+          <ul>
+            <li>Ingestion via ADF; transformations via Databricks/Fabric notebooks.</li>
+            <li>Dimensional modelling in warehouse; performance and reliability controls.</li>
+            <li>Incremental refresh patterns and repeatable deployment approach.</li>
+          </ul>
+          <div class="links">
+            <a class="mini-link" href="#" target="_blank" rel="noopener">Repo (add link)</a>
+            <a class="mini-link" href="#" target="_blank" rel="noopener">Architecture diagram (add link)</a>
+          </div>
+        </div>
+
+        <div class="card proj">
+          <div class="top">
+            <h3>API Ingestion Framework (Pagination + Resilience)</h3>
+            <span class="tag">Engineering</span>
+          </div>
+          <p>Built an ingestion pattern for large REST APIs with operational reliability.</p>
+          <ul>
+            <li>Pagination, retries, stop conditions, and structured logging.</li>
+            <li>Schema handling for JSON and semi-structured outputs.</li>
+            <li>Automated scheduling and run history for auditability.</li>
+          </ul>
+          <div class="links">
+            <a class="mini-link" href="#" target="_blank" rel="noopener">Repo (add link)</a>
+            <a class="mini-link" href="#" target="_blank" rel="noopener">Write-up (add link)</a>
+          </div>
+        </div>
+
+        <div class="card proj">
+          <div class="top">
+            <h3>Warehouse Modelling and Performance (SQL Server)</h3>
+            <span class="tag">Warehousing</span>
+          </div>
+          <p>Delivered relational warehouse structures supporting complex reporting and analytics.</p>
+          <ul>
+            <li>Advanced T-SQL: CTEs, dynamic procedures, UDFs, performance tuning.</li>
+            <li>Change tracking patterns and history tables where needed.</li>
+            <li>Operational considerations: job scheduling, maintenance, monitoring.</li>
+          </ul>
+          <div class="links">
+            <a class="mini-link" href="#" target="_blank" rel="noopener">SQL examples (add link)</a>
+            <a class="mini-link" href="#" target="_blank" rel="noopener">Case study (add link)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Suggested add-ons (optional)</h3>
+        <p class="muted">
+          Add one architecture diagram image per project. Even a simple PNG exported from draw.io significantly improves seniority signal.
+        </p>
+        <div class="pill-list">
+          <span class="pill">Data Quality Framework</span>
+          <span class="pill">Observability (Logs / Metrics)</span>
+          <span class="pill">Security Model (RBAC)</span>
+          <span class="pill">Cost Optimisation</span>
+          <span class="pill">CI/CD for Data</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-title">
+        <h2>Experience</h2>
+        <p>Keep this outcome-focused. Quantify improvements where possible.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="when">Recent</div>
+          <div class="what">
+            <h3>Data Engineer • Azure / Fabric</h3>
+            <p>
+              Delivered scalable ETL/ELT pipelines across ADF, Databricks, Synapse/Fabric; implemented incremental processing,
+              modelling, and quality controls to support complex analytics and reporting.
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="when">Previous</div>
+          <div class="what">
+            <h3>Data Platform Developer • Warehousing and Integration</h3>
+            <p>
+              Designed and maintained relational data warehouse structures and T-SQL logic; partnered with stakeholders to translate
+              requirements into reliable data products and operationalised delivery with scheduling and documentation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="note">
+        Replace “Recent / Previous” with your real dates and employers if you are comfortable sharing them.
+      </p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <p>Make it easy to reach you and verify your work.</p>
+      </div>
+
+      <div class="contact">
+        <div class="card">
+          <h3>Direct</h3>
+          <p>Email: <a href="mailto:YOUR_EMAIL">YOUR_EMAIL</a></p>
+          <p style="margin-top:8px;">Location: United Kingdom (open to hybrid/remote)</p>
+
+          <div class="row">
+            <a class="mini-link" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="mini-link" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">GitHub</a>
+            <a class="mini-link" href="#projects">Projects</a>
+          </div>
+
+          <p class="note">Optional: Add a PDF CV file and link it here (e.g., /Mahesh_CV.pdf).</p>
+        </div>
+
+        <div class="card">
+          <h3>Quick message template</h3>
+          <p class="muted">Copy/paste this into LinkedIn or email:</p>
+          <div style="margin-top:10px; border:1px solid var(--border); border-radius:14px; padding:12px; background: rgba(255,255,255,0.03);">
+            <p style="margin:0; color: var(--text); font-size: 14px;">
+              Hello, I’m Mahesh. I specialise in Azure/Fabric data engineering—building governed ingestion pipelines and warehouse models for analytics.
+              I would welcome a short discussion to understand your data platform goals and how I can help.
+            </p>
+          </div>
+
+          <button class="btn" style="margin-top:12px;" id="copyBtn" type="button">
+            <span class="icon" aria-hidden="true">⎘</span>
+            Copy Message
+          </button>
+          <p class="note" id="copyStatus" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap" style="padding:0;">
+        <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+          <span>© <span id="year"></span> Mahesh G</span>
+          <span class="muted">Built as a static site for GitHub Pages. Clean, fast, and version-controlled.</span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Copy contact message
+    const copyBtn = document.getElementById("copyBtn");
+    const copyStatus = document.getElementById("copyStatus");
+
+    copyBtn.addEventListener("click", async () => {
+      const text = "Hello, I’m Mahesh. I specialise in Azure/Fabric data engineering—building governed ingestion pipelines and warehouse models for analytics. I would welcome a short discussion to understand your data platform goals and how I can help.";
+      try {
+        await navigator.clipboard.writeText(text);
+        copyStatus.textContent = "Copied.";
+      } catch (e) {
+        copyStatus.textContent = "Copy failed. Please select and copy manually.";
+      }
+      setTimeout(() => copyStatus.textContent = "", 2000);
+    });
+  </script>
 </body>
 </html>
