@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Data Engineer portfolio — Azure, Fabric, Databricks, ADF, SQL, Python." />
-  <title>Mahesh G | Data Engineer</title>
+  <meta name="description" content="Mahesh — Data Engineer. Azure, Fabric, Databricks, ADF, SQL, Python. Portfolio with case studies and architecture." />
+  <title>Mahesh | Data Engineer</title>
 
   <style>
     :root{
@@ -15,11 +15,11 @@
       --muted:#b8c4ff;
       --muted2:#93a4ee;
       --border: rgba(255,255,255,0.10);
-      --shadow: 0 12px 30px rgba(0,0,0,0.30);
+      --shadow: 0 14px 36px rgba(0,0,0,0.32);
       --accent:#7aa2ff;
       --accent2:#9bffd6;
       --danger:#ff7aa2;
-      --max: 1080px;
+      --max: 1120px;
       --radius: 18px;
       --radius2: 26px;
     }
@@ -28,11 +28,12 @@
     html{ scroll-behavior:smooth; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 700px at 15% 10%, rgba(122,162,255,0.25), transparent 60%),
-                  radial-gradient(900px 600px at 85% 10%, rgba(155,255,214,0.14), transparent 55%),
-                  radial-gradient(900px 600px at 55% 90%, rgba(122,162,255,0.10), transparent 55%),
-                  linear-gradient(180deg, var(--bg), var(--bg2));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1100px 680px at 15% 10%, rgba(122,162,255,0.26), transparent 62%),
+        radial-gradient(880px 620px at 86% 12%, rgba(155,255,214,0.14), transparent 58%),
+        radial-gradient(900px 700px at 55% 92%, rgba(122,162,255,0.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
       color:var(--text);
       line-height:1.55;
     }
@@ -42,11 +43,11 @@
 
     .wrap{ max-width: var(--max); margin:0 auto; padding: 22px; }
 
-    /* Top nav */
+    /* Nav */
     .nav{
       position: sticky; top:0; z-index: 50;
       backdrop-filter: blur(10px);
-      background: rgba(11,16,32,0.65);
+      background: rgba(11,16,32,0.70);
       border-bottom: 1px solid var(--border);
     }
     .nav .inner{
@@ -60,7 +61,7 @@
     }
     .brand{
       display:flex; align-items:center; gap:10px;
-      font-weight: 700;
+      font-weight: 760;
       letter-spacing: 0.2px;
     }
     .dot{
@@ -87,22 +88,37 @@
       background: rgba(255,255,255,0.04);
     }
 
-    /* Hero */
-    .hero{
-      padding: 44px 0 22px;
-      display:grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-    @media (max-width: 900px){
-      .hero{ grid-template-columns: 1fr; }
-    }
+    /* Panels / Cards */
     .panel{
       border: 1px solid var(--border);
       background: rgba(17,27,63,0.42);
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
+    }
+    .card{
+      border: 1px solid var(--border);
+      background: rgba(17,27,63,0.52);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    /* Hero */
+    .hero{
+      padding: 44px 0 18px;
+      display:grid;
+      grid-template-columns: 1.45fr 0.55fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 920px){
+      .hero{ grid-template-columns: 1fr; }
     }
     .hero-main{ padding: 28px; }
     .kicker{
@@ -124,7 +140,7 @@
       margin: 10px 0 0;
       color: var(--muted);
       font-size: 16px;
-      max-width: 70ch;
+      max-width: 76ch;
     }
     .badges{
       margin-top: 16px;
@@ -154,7 +170,7 @@
       border-radius: 14px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.04);
-      font-weight: 650;
+      font-weight: 690;
       font-size: 14px;
       gap: 10px;
       cursor: pointer;
@@ -172,19 +188,6 @@
     .btn .icon{ width:16px; height:16px; display:inline-block; }
 
     .hero-side{ padding: 18px; display:flex; flex-direction:column; gap: 12px; }
-    .card{
-      border: 1px solid var(--border);
-      background: rgba(17,27,63,0.52);
-      border-radius: var(--radius);
-      padding: 14px;
-    }
-    .card h3{
-      margin:0 0 8px;
-      font-size: 14px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-    }
     .metric{
       display:grid;
       grid-template-columns: 1fr;
@@ -199,11 +202,11 @@
     }
     .metric .row b{
       color: var(--text);
-      font-weight: 650;
+      font-weight: 690;
     }
 
     /* Sections */
-    section{ padding: 18px 0; }
+    section{ padding: 16px 0; }
     .section-title{
       display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
       margin: 18px 0 10px;
@@ -217,11 +220,11 @@
       margin:0;
       color: var(--muted);
       font-size: 14px;
-      max-width: 60ch;
+      max-width: 72ch;
     }
 
     .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media (max-width: 900px){ .grid-2{ grid-template-columns: 1fr; } }
+    @media (max-width: 920px){ .grid-2{ grid-template-columns: 1fr; } }
 
     .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     @media (max-width: 980px){ .grid-3{ grid-template-columns: 1fr 1fr; } }
@@ -237,19 +240,23 @@
       font-size: 13px;
     }
 
-    .proj{
-      display:flex; flex-direction:column; gap: 10px;
-      min-height: 250px;
+    /* Case studies */
+    .case{
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      min-height: 290px;
     }
-    .proj .top{
+    .case .top{
       display:flex; align-items:flex-start; justify-content:space-between; gap: 10px;
     }
-    .proj h3{
+    .case h3{
       margin:0;
       font-size: 16px;
       letter-spacing: -0.2px;
     }
-    .proj .tag{
+    .tag{
       font-size: 12px;
       border:1px solid var(--border);
       border-radius: 999px;
@@ -258,17 +265,49 @@
       background: rgba(255,255,255,0.03);
       white-space:nowrap;
     }
-    .proj p{ margin:0; color: var(--muted); font-size: 14px; }
-    .proj ul{
-      margin: 0;
-      padding-left: 18px;
+    .case p{ margin:0; color: var(--muted); font-size: 14px; }
+
+    .case .kv{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap: 8px 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .case .kv b{ color: var(--text); font-weight: 690; }
+
+    details{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      padding: 10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color: var(--text);
+      font-weight: 690;
+      font-size: 14px;
+      list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    .details-body{
+      margin-top: 10px;
       color: var(--muted);
       font-size: 14px;
+    }
+    .details-body ul{
+      margin: 8px 0 0;
+      padding-left: 18px;
       display:flex;
       flex-direction:column;
       gap: 6px;
     }
-    .proj .links{
+
+    .links{
       margin-top:auto;
       display:flex; gap: 10px; flex-wrap:wrap;
     }
@@ -286,10 +325,28 @@
     }
     .mini-link:hover{ background: rgba(255,255,255,0.05); }
 
-    .note{
-      color: var(--muted2);
+    /* Diagram placeholder */
+    .diagram{
+      border: 1px dashed rgba(255,255,255,0.20);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.02);
+      padding: 14px;
+      color: var(--muted);
       font-size: 13px;
-      margin-top: 8px;
+    }
+    .diagram .box{
+      margin-top: 10px;
+      height: 160px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(122,162,255,0.10), rgba(155,255,214,0.06));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding: 12px;
+      color: var(--muted);
     }
 
     /* Timeline */
@@ -328,7 +385,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 14px;
     }
-    @media (max-width: 900px){
+    @media (max-width: 920px){
       .contact{ grid-template-columns: 1fr; }
     }
     .contact .card p{ margin: 0; color: var(--muted); font-size: 14px; }
@@ -336,7 +393,6 @@
       display:flex; gap: 10px; flex-wrap:wrap; margin-top: 12px;
     }
 
-    /* Footer */
     footer{
       padding: 22px 0 44px;
       color: var(--muted);
@@ -345,9 +401,12 @@
       margin-top: 18px;
     }
 
-    /* Small helper */
+    .note{
+      color: var(--muted2);
+      font-size: 13px;
+      margin-top: 8px;
+    }
     .muted{ color: var(--muted); }
-    .sr-only{ position:absolute; left:-9999px; }
   </style>
 </head>
 
@@ -356,12 +415,13 @@
     <div class="inner">
       <div class="brand">
         <span class="dot" aria-hidden="true"></span>
-        <span>Mahesh G</span>
+        <span>Mahesh</span>
       </div>
       <nav class="menu" aria-label="Primary">
         <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#case-studies">Case Studies</a>
+        <a href="#architecture">Architecture</a>
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -372,73 +432,78 @@
     <!-- HERO -->
     <div class="hero">
       <div class="panel hero-main">
-        <div class="kicker">Data Engineer • Azure / Fabric • Warehousing • ETL/ELT</div>
-        <h1>Building reliable, governed data platforms that scale.</h1>
+        <div class="kicker">Data Engineer</div>
+        <h1>Delivering scalable, governed data platforms for analytics and reporting.</h1>
         <p class="sub">
-          I design and deliver end-to-end data solutions across Azure and Microsoft Fabric—ingestion, orchestration,
-          modelling, and warehousing—so analysts and stakeholders can trust the numbers and make faster decisions.
+          I build end-to-end data solutions across Azure and Microsoft Fabric—ingestion, orchestration, modelling, and warehousing—
+          focused on reliability, auditability, and high-quality datasets that teams can trust.
         </p>
 
         <div class="badges" aria-label="Key technologies">
           <span class="badge">Azure Data Factory</span>
+          <span class="badge">ADLS</span>
           <span class="badge">Databricks</span>
           <span class="badge">Azure Synapse</span>
           <span class="badge">Microsoft Fabric</span>
           <span class="badge">SQL Server / T-SQL</span>
           <span class="badge">Python</span>
-          <span class="badge">CI/CD • Azure DevOps</span>
+          <span class="badge">Azure DevOps • CI/CD</span>
         </div>
 
         <div class="cta">
-          <a class="btn primary" href="#projects">
+          <a class="btn primary" href="#case-studies">
             <span class="icon" aria-hidden="true">▸</span>
-            View Projects
+            View Case Studies
           </a>
           <a class="btn" href="#contact">
             <span class="icon" aria-hidden="true">✉</span>
             Contact
           </a>
-          <a class="btn" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">
+          <a class="btn" href="https://github.com/xxmahesh" target="_blank" rel="noopener">
             <span class="icon" aria-hidden="true">↗</span>
             GitHub
           </a>
-          <a class="btn" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">
+          <a class="btn" href="https://www.linkedin.com/in/i-mahesh" target="_blank" rel="noopener">
             <span class="icon" aria-hidden="true">↗</span>
             LinkedIn
+          </a>
+          <a class="btn" href="mailto:connect@themahesh.org">
+            <span class="icon" aria-hidden="true">↗</span>
+            Email
           </a>
         </div>
 
         <p class="note">
-          Replace the placeholders (YOUR_GITHUB_USERNAME / YOUR_LINKEDIN) with your actual links.
+          Optional next step: add a PDF CV to this repo (e.g., <b>Mahesh_CV.pdf</b>) and link it from the Contact section.
         </p>
       </div>
 
       <aside class="panel hero-side" aria-label="Highlights">
         <div class="card">
-          <h3>Strengths</h3>
+          <h3>What I’m known for</h3>
           <div class="metric">
             <div class="row"><span>Architecture</span><b>Medallion, DWH modelling</b></div>
-            <div class="row"><span>Engineering</span><b>Scalable pipelines, automation</b></div>
-            <div class="row"><span>Quality</span><b>Governance, lineage, controls</b></div>
+            <div class="row"><span>Engineering</span><b>Reliable pipelines, automation</b></div>
+            <div class="row"><span>Quality</span><b>Governance, controls, audit</b></div>
             <div class="row"><span>Delivery</span><b>Agile, DevOps, CI/CD</b></div>
           </div>
         </div>
 
         <div class="card">
-          <h3>Focus Areas</h3>
+          <h3>Focus areas</h3>
           <div class="pill-list">
             <span class="pill">Incremental loads</span>
             <span class="pill">SCD Type 2</span>
             <span class="pill">API ingestion</span>
-            <span class="pill">Data quality</span>
+            <span class="pill">Data quality checks</span>
             <span class="pill">Performance tuning</span>
-            <span class="pill">Secure access</span>
+            <span class="pill">Operational readiness</span>
           </div>
         </div>
 
         <div class="card">
-          <h3>Available For</h3>
-          <p>Data Engineering • Platform Modernisation • Data Architecture • Warehousing • Integration</p>
+          <h3>Working style</h3>
+          <p class="muted">Clear requirements, pragmatic design choices, strong documentation, and predictable delivery.</p>
         </div>
       </aside>
     </div>
@@ -447,45 +512,44 @@
     <section id="about">
       <div class="section-title">
         <h2>About</h2>
-        <p>How I operate: outcomes first, strong governance, and scalable patterns.</p>
+        <p>Practical engineering mindset: build once, run reliably, and keep it maintainable.</p>
       </div>
 
       <div class="grid-2">
         <div class="card">
           <p>
-            I am a Data Engineer with strong experience building and modernising data platforms using
-            Azure services (ADF, ADLS, Databricks, Synapse) and Microsoft Fabric. I specialise in designing
-            dependable ingestion and transformation pipelines, implementing warehouse models for analytics, and
-            ensuring quality through repeatable, well-governed processes.
+            I am a Data Engineer with strong experience delivering cloud-based data platforms using Azure services
+            (ADF, ADLS, Databricks, Synapse) and Microsoft Fabric. I focus on building dependable ingestion and transformation pipelines,
+            implementing warehouse models for analytics, and improving trust in data through clear controls and governance.
           </p>
           <p style="margin-top:10px;">
-            I am comfortable working with large relational datasets and semi/unstructured data (JSON, XML, Parquet, CSV),
-            and I collaborate closely with analysts and stakeholders to convert reporting requirements into robust data products.
+            I work confidently with large relational datasets and semi/unstructured formats (JSON, XML, Parquet, CSV),
+            and I collaborate with stakeholders to translate reporting needs into robust, reusable data products.
           </p>
         </div>
 
         <div class="card">
-          <h3>What you will see on this site</h3>
-          <ul>
-            <li>Project case studies focused on architecture decisions and outcomes.</li>
-            <li>Re-usable patterns for ingestion, incremental processing, and modelling.</li>
-            <li>Evidence of delivery discipline: CI/CD, documentation, and operational readiness.</li>
+          <h3>What this portfolio contains</h3>
+          <ul style="margin:0; padding-left:18px; color:var(--muted); display:flex; flex-direction:column; gap:6px;">
+            <li>Case studies that explain problem context, approach, and outcomes.</li>
+            <li>Architecture section showing standard patterns used for production-grade delivery.</li>
+            <li>Evidence signals: engineering discipline, quality, and operational thinking.</li>
           </ul>
-          <p class="note">Tip: Add 2–4 strong case studies rather than many small examples.</p>
+          <p class="note">Tip: Replace placeholders with your real projects; keep it concise and outcome-led.</p>
         </div>
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills">
+    <!-- CAPABILITIES -->
+    <section id="capabilities">
       <div class="section-title">
-        <h2>Skills</h2>
-        <p>Grouped by capability to make seniority and depth easy to assess.</p>
+        <h2>Capabilities</h2>
+        <p>Skills grouped by delivery capability (easier to assess than a long tool list).</p>
       </div>
 
       <div class="grid-3">
         <div class="card">
-          <h3>Cloud & Platforms</h3>
+          <h3>Platforms</h3>
           <div class="pill-list">
             <span class="pill">Azure Data Factory</span>
             <span class="pill">Azure Databricks</span>
@@ -498,15 +562,15 @@
         </div>
 
         <div class="card">
-          <h3>Data Engineering</h3>
+          <h3>Engineering patterns</h3>
           <div class="pill-list">
-            <span class="pill">ETL/ELT</span>
-            <span class="pill">Incremental loads</span>
+            <span class="pill">Medallion architecture</span>
             <span class="pill">SCD Type 2</span>
-            <span class="pill">Data quality checks</span>
+            <span class="pill">Incremental processing</span>
             <span class="pill">Metadata-driven pipelines</span>
-            <span class="pill">REST API ingestion</span>
-            <span class="pill">Monitoring & alerting</span>
+            <span class="pill">Idempotent loads</span>
+            <span class="pill">Retries & backoff</span>
+            <span class="pill">Audit & lineage</span>
           </div>
         </div>
 
@@ -525,59 +589,131 @@
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section id="projects">
+    <!-- CASE STUDIES -->
+    <section id="case-studies">
       <div class="section-title">
-        <h2>Projects</h2>
-        <p>Replace placeholders with your real implementations, diagrams, and repo links.</p>
+        <h2>Case studies</h2>
+        <p>Replace the outcomes with real figures where possible (latency, cost, reliability, adoption).</p>
       </div>
 
       <div class="grid-3">
-        <div class="card proj">
+        <!-- Case 1 -->
+        <div class="card case">
           <div class="top">
-            <h3>Medallion Data Platform (Azure / Fabric)</h3>
+            <h3>Modernised Data Platform (Azure / Fabric)</h3>
             <span class="tag">Architecture</span>
           </div>
-          <p>Designed a governed data platform with Bronze/Silver/Gold layers for analytics-ready datasets.</p>
-          <ul>
-            <li>Ingestion via ADF; transformations via Databricks/Fabric notebooks.</li>
-            <li>Dimensional modelling in warehouse; performance and reliability controls.</li>
-            <li>Incremental refresh patterns and repeatable deployment approach.</li>
-          </ul>
+          <p>Standardised ingestion and transformation into governed Bronze/Silver/Gold layers for analytics-ready data products.</p>
+
+          <div class="kv" aria-label="case study key points">
+            <div>Stack</div><div><b>ADF, ADLS, Databricks/Fabric, Synapse/Warehouse</b></div>
+            <div>Focus</div><div><b>Reliability, data quality, repeatable patterns</b></div>
+          </div>
+
+          <details>
+            <summary>What I did</summary>
+            <div class="details-body">
+              <ul>
+                <li>Designed medallion layering and warehouse modelling approach for reporting.</li>
+                <li>Built automated ingestion and transformation workflows with clear audit and logging.</li>
+                <li>Implemented incremental loads and quality checks to improve trust and reduce rework.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>Outcomes (replace with yours)</summary>
+            <div class="details-body">
+              <ul>
+                <li>Reduced manual reporting effort by standardising curated datasets.</li>
+                <li>Improved reliability through automated retries, monitoring, and consistent run history.</li>
+                <li>Accelerated onboarding of new sources using reusable pipeline templates.</li>
+              </ul>
+            </div>
+          </details>
+
           <div class="links">
             <a class="mini-link" href="#" target="_blank" rel="noopener">Repo (add link)</a>
-            <a class="mini-link" href="#" target="_blank" rel="noopener">Architecture diagram (add link)</a>
+            <a class="mini-link" href="#" target="_blank" rel="noopener">Diagram (add link)</a>
           </div>
         </div>
 
-        <div class="card proj">
+        <!-- Case 2 -->
+        <div class="card case">
           <div class="top">
             <h3>API Ingestion Framework (Pagination + Resilience)</h3>
             <span class="tag">Engineering</span>
           </div>
-          <p>Built an ingestion pattern for large REST APIs with operational reliability.</p>
-          <ul>
-            <li>Pagination, retries, stop conditions, and structured logging.</li>
-            <li>Schema handling for JSON and semi-structured outputs.</li>
-            <li>Automated scheduling and run history for auditability.</li>
-          </ul>
+          <p>Built a repeatable approach for ingesting large REST APIs with stop conditions, retries, and operational auditability.</p>
+
+          <div class="kv">
+            <div>Stack</div><div><b>Python, ADF/Fabric pipelines, JSON, Delta</b></div>
+            <div>Focus</div><div><b>Idempotency, retries, run history</b></div>
+          </div>
+
+          <details>
+            <summary>What I did</summary>
+            <div class="details-body">
+              <ul>
+                <li>Implemented robust pagination patterns and stop conditions for large datasets.</li>
+                <li>Added structured logging, error handling, and run metadata to support supportability.</li>
+                <li>Handled schema drift and semi-structured JSON into standardised curated tables.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>Outcomes (replace with yours)</summary>
+            <div class="details-body">
+              <ul>
+                <li>Reduced failures and reprocessing by enforcing idempotent loads.</li>
+                <li>Enabled faster troubleshooting through consistent logs and run identifiers.</li>
+                <li>Scaled to higher volumes by separating ingestion from transformation layers.</li>
+              </ul>
+            </div>
+          </details>
+
           <div class="links">
             <a class="mini-link" href="#" target="_blank" rel="noopener">Repo (add link)</a>
             <a class="mini-link" href="#" target="_blank" rel="noopener">Write-up (add link)</a>
           </div>
         </div>
 
-        <div class="card proj">
+        <!-- Case 3 -->
+        <div class="card case">
           <div class="top">
-            <h3>Warehouse Modelling and Performance (SQL Server)</h3>
+            <h3>Warehouse Modelling & Performance (SQL)</h3>
             <span class="tag">Warehousing</span>
           </div>
-          <p>Delivered relational warehouse structures supporting complex reporting and analytics.</p>
-          <ul>
-            <li>Advanced T-SQL: CTEs, dynamic procedures, UDFs, performance tuning.</li>
-            <li>Change tracking patterns and history tables where needed.</li>
-            <li>Operational considerations: job scheduling, maintenance, monitoring.</li>
-          </ul>
+          <p>Delivered analytical models and performance-oriented SQL patterns to support complex reporting and downstream BI.</p>
+
+          <div class="kv">
+            <div>Stack</div><div><b>SQL Server, T-SQL, stored procs, indexing</b></div>
+            <div>Focus</div><div><b>Query performance, modelling, maintainability</b></div>
+          </div>
+
+          <details>
+            <summary>What I did</summary>
+            <div class="details-body">
+              <ul>
+                <li>Built dimensional structures and curated views for consistent reporting outputs.</li>
+                <li>Optimised query patterns (CTEs, indexes, stored procedures) and reduced bottlenecks.</li>
+                <li>Implemented history handling patterns (e.g., SCD Type 2) where required.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>Outcomes (replace with yours)</summary>
+            <div class="details-body">
+              <ul>
+                <li>Improved report performance by tuning queries and data structures.</li>
+                <li>Reduced logic duplication by centralising definitions in curated layers/views.</li>
+                <li>Increased confidence by enforcing consistent business rules.</li>
+              </ul>
+            </div>
+          </details>
+
           <div class="links">
             <a class="mini-link" href="#" target="_blank" rel="noopener">SQL examples (add link)</a>
             <a class="mini-link" href="#" target="_blank" rel="noopener">Case study (add link)</a>
@@ -586,16 +722,58 @@
       </div>
 
       <div class="card" style="margin-top:14px;">
-        <h3>Suggested add-ons (optional)</h3>
+        <h3>What to add next (high impact)</h3>
         <p class="muted">
-          Add one architecture diagram image per project. Even a simple PNG exported from draw.io significantly improves seniority signal.
+          Add one diagram per project and a short “Results” line with metrics (duration reduced, costs reduced, reliability improved, adoption increased).
         </p>
         <div class="pill-list">
-          <span class="pill">Data Quality Framework</span>
-          <span class="pill">Observability (Logs / Metrics)</span>
-          <span class="pill">Security Model (RBAC)</span>
-          <span class="pill">Cost Optimisation</span>
-          <span class="pill">CI/CD for Data</span>
+          <span class="pill">Architecture diagrams (draw.io)</span>
+          <span class="pill">Data quality checks</span>
+          <span class="pill">Observability</span>
+          <span class="pill">Security/RBAC approach</span>
+          <span class="pill">CI/CD examples</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section id="architecture">
+      <div class="section-title">
+        <h2>Architecture patterns</h2>
+        <p>Use this section to demonstrate your design thinking. Add diagrams as images later.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Reference pattern (typical)</h3>
+          <div class="diagram">
+            <div><b>Flow:</b> Sources → Ingestion → Bronze → Silver → Gold/Warehouse → BI/Reporting</div>
+            <div class="box">
+              Add an image here later (PNG/SVG). Example filename: <b>/assets/architecture-medallion.png</b><br/>
+              Then replace this placeholder with an &lt;img&gt; tag.
+            </div>
+            <div class="note">Tip: diagrams are one of the strongest “seniority signals” in a data engineering portfolio.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Operational readiness checklist</h3>
+          <ul style="margin:0; padding-left:18px; color:var(--muted); display:flex; flex-direction:column; gap:6px;">
+            <li>Idempotent loads with clear re-run behaviour</li>
+            <li>Retries / backoff for transient failures</li>
+            <li>Run metadata: start/end, row counts, status, error details</li>
+            <li>Data quality checks at key boundaries (Bronze→Silver, Silver→Gold)</li>
+            <li>CI/CD to promote changes safely and consistently</li>
+            <li>Documentation and change control</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>How to add a diagram (quick)</h3>
+        <p class="muted">Create <b>/assets</b> folder in this repo, upload a PNG (e.g., <b>architecture.png</b>), then insert:</p>
+        <div style="margin-top:10px; border:1px solid var(--border); border-radius:14px; padding:12px; background: rgba(255,255,255,0.03); color:var(--muted); font-size:13px;">
+          &lt;img src="assets/architecture.png" alt="Architecture diagram" style="width:100%; border-radius:14px; border:1px solid rgba(255,255,255,0.10);" /&gt;
         </div>
       </div>
     </section>
@@ -604,7 +782,7 @@
     <section id="experience">
       <div class="section-title">
         <h2>Experience</h2>
-        <p>Keep this outcome-focused. Quantify improvements where possible.</p>
+        <p>Keep this concise. If you want, you can add employer names and dates later.</p>
       </div>
 
       <div class="timeline">
@@ -614,7 +792,7 @@
             <h3>Data Engineer • Azure / Fabric</h3>
             <p>
               Delivered scalable ETL/ELT pipelines across ADF, Databricks, Synapse/Fabric; implemented incremental processing,
-              modelling, and quality controls to support complex analytics and reporting.
+              modelling and quality controls to support complex analytics and reporting.
             </p>
           </div>
         </div>
@@ -622,17 +800,17 @@
         <div class="tl-item">
           <div class="when">Previous</div>
           <div class="what">
-            <h3>Data Platform Developer • Warehousing and Integration</h3>
+            <h3>Data Platform Developer • Warehousing & Integration</h3>
             <p>
-              Designed and maintained relational data warehouse structures and T-SQL logic; partnered with stakeholders to translate
-              requirements into reliable data products and operationalised delivery with scheduling and documentation.
+              Built and maintained relational warehouse structures and T-SQL logic; collaborated with stakeholders to define business rules,
+              improved performance, and operationalised processes with scheduling and documentation.
             </p>
           </div>
         </div>
       </div>
 
       <p class="note">
-        Replace “Recent / Previous” with your real dates and employers if you are comfortable sharing them.
+        Optional: add a “Highlights” bullet list with measurable achievements (e.g., % reduction in runtime, cost savings, data quality improvements).
       </p>
     </section>
 
@@ -640,31 +818,35 @@
     <section id="contact">
       <div class="section-title">
         <h2>Contact</h2>
-        <p>Make it easy to reach you and verify your work.</p>
+        <p>Make it straightforward to validate your work and get in touch.</p>
       </div>
 
       <div class="contact">
         <div class="card">
           <h3>Direct</h3>
-          <p>Email: <a href="mailto:YOUR_EMAIL">YOUR_EMAIL</a></p>
-          <p style="margin-top:8px;">Location: United Kingdom (open to hybrid/remote)</p>
+          <p>Email: <a href="mailto:connect@themahesh.org">connect@themahesh.org</a></p>
+          <p style="margin-top:8px;">GitHub: <a href="https://github.com/xxmahesh" target="_blank" rel="noopener">github.com/xxmahesh</a></p>
+          <p style="margin-top:8px;">LinkedIn: <a href="https://www.linkedin.com/in/i-mahesh" target="_blank" rel="noopener">linkedin.com/in/i-mahesh</a></p>
 
           <div class="row">
-            <a class="mini-link" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
-            <a class="mini-link" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">GitHub</a>
-            <a class="mini-link" href="#projects">Projects</a>
+            <a class="mini-link" href="https://www.linkedin.com/in/i-mahesh" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="mini-link" href="https://github.com/xxmahesh" target="_blank" rel="noopener">GitHub</a>
+            <a class="mini-link" href="mailto:connect@themahesh.org">Email</a>
+            <a class="mini-link" href="#case-studies">Case Studies</a>
           </div>
 
-          <p class="note">Optional: Add a PDF CV file and link it here (e.g., /Mahesh_CV.pdf).</p>
+          <p class="note">
+            Optional: add a CV PDF to this repo (example: <b>/Mahesh_CV.pdf</b>) and link it here.
+          </p>
         </div>
 
         <div class="card">
           <h3>Quick message template</h3>
-          <p class="muted">Copy/paste this into LinkedIn or email:</p>
+          <p class="muted">Copy/paste into LinkedIn or email:</p>
+
           <div style="margin-top:10px; border:1px solid var(--border); border-radius:14px; padding:12px; background: rgba(255,255,255,0.03);">
-            <p style="margin:0; color: var(--text); font-size: 14px;">
-              Hello, I’m Mahesh. I specialise in Azure/Fabric data engineering—building governed ingestion pipelines and warehouse models for analytics.
-              I would welcome a short discussion to understand your data platform goals and how I can help.
+            <p id="msgText" style="margin:0; color: var(--text); font-size: 14px;">
+              Hello, I’m Mahesh. I’m a Data Engineer specialising in Azure and Microsoft Fabric—building governed ingestion pipelines and warehouse-ready models for analytics. I would welcome a short discussion to understand your data platform goals and how I can help.
             </p>
           </div>
 
@@ -673,6 +855,13 @@
             Copy Message
           </button>
           <p class="note" id="copyStatus" aria-live="polite"></p>
+
+          <div class="card" style="margin-top:14px; padding:12px;">
+            <h3>Custom domain (your WordPress domain)</h3>
+            <p class="muted">
+              You can point your domain to GitHub Pages later. When ready, add your domain in GitHub Pages settings and set DNS records at your domain provider.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -680,25 +869,23 @@
     <footer>
       <div class="wrap" style="padding:0;">
         <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
-          <span>© <span id="year"></span> Mahesh G</span>
-          <span class="muted">Built as a static site for GitHub Pages. Clean, fast, and version-controlled.</span>
+          <span>© <span id="year"></span> Mahesh</span>
+          <span class="muted">Static site for GitHub Pages — fast, clean, version-controlled.</span>
         </div>
       </div>
     </footer>
   </main>
 
   <script>
-    // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Copy contact message
     const copyBtn = document.getElementById("copyBtn");
     const copyStatus = document.getElementById("copyStatus");
+    const msgText = document.getElementById("msgText").textContent;
 
     copyBtn.addEventListener("click", async () => {
-      const text = "Hello, I’m Mahesh. I specialise in Azure/Fabric data engineering—building governed ingestion pipelines and warehouse models for analytics. I would welcome a short discussion to understand your data platform goals and how I can help.";
       try {
-        await navigator.clipboard.writeText(text);
+        await navigator.clipboard.writeText(msgText);
         copyStatus.textContent = "Copied.";
       } catch (e) {
         copyStatus.textContent = "Copy failed. Please select and copy manually.";
